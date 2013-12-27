@@ -1,5 +1,5 @@
 from basics import BaseAttachment
-#from simple_stim import SimpleStim, STIM_VISUAL, STIM_AUDIO, STIM_VISUAL
+from stim import SimpleStim, STIM_VISUAL, STIM_AUDIO, STIM_DAMAGE
 
 class PlayerLegs(BaseAttachment):
 

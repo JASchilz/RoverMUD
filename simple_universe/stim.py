@@ -1,3 +1,5 @@
+from process import process
+
 STIM_VISUAL = 1
 STIM_AUDIO = 2
 STIM_DAMAGE = 3

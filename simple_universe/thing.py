@@ -17,6 +17,9 @@ class SimpleThing(BaseThing):
         self.takable = takable
 
         self.short_description = self.name
+        
+    def process_stim(self, stim):
+        pass
 
     def room(self):
 

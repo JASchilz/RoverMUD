@@ -1,64 +1,18 @@
 from thing import SimpleThing
+from mob import SimpleMob
+from room import SimpleRoom
+from world import SimpleWorld
 
-class SimpleRoom():
+from world_basics import zone_0
 
-    ID = [-1, -1]
-    exits = []
-    description = ""
+DEFAULT_LOCATION = [1, 0]
 
-    def __init__(self, ID = [-1, -1], exits = False, description = False,
-                 contents = False):
-
-        self.ID = ID
-        self.exits = exits
-        self.description = description
-
-        self.contents = []
-        if contents:
-            for content in contents:
-                content.move_to(self, self.contents)
-
-    def resolve_exit(self, the_exit):
-
-        if type(the_exit[1]) == type([]):
-            return THIS_WORLD.zones[the_exit[1][0]][the_exit[1][1]]
-
-        else:
-            return THIS_WORLD.zones[self.ID[0]][the_exit[1]]
-
-    def zone(self):
-
-        return THIS_WORLD.zones[self.ID[0]]
-
-
-class SimpleWorld():
-
-    zones = []
-
-    def __init__(self, zones = False):
-
-        self.zones = zones
-
-
-A_CORPSE = SimpleThing("the corpse of ", "This is the corpse of ",
-                ["corpse"], False)
 
 this_clock = SimpleThing("a bronze clock",
                 "This is a large bronze clock, topped with a statue of an angel.",
                 ["clock"])
 this_stag = SimpleMob("a muscular stag", "This is a large brown stag.",
                 ["stag"], False)
-
-
-zone_0 = []
-zone_0.append(SimpleRoom([0, 0], [],
-                "You have been destroyed. Prepare yourself for reclamation."))
-zone_0.append(SimpleRoom([0, 1], [],
-                "You are in limbo. With luck, you should soon be reincarnated \
-                into the world."))
-
-THE_TRASH = zone_0[0]
-LIMBO = zone_0[1]
 
 
 zone_1 = []
@@ -78,5 +32,7 @@ zone_2.append(SimpleRoom([2, 3], [["south", 5], ["west", 2]], "Cliffs of mossy r
 zone_2.append(SimpleRoom([2, 4], [["north", 1], ["east", 0]], "The face of a rocky cliff abruptly ends in a precipitous fall to the ocean, blocking movement west and south respectively. But the woods you're in extend in all other directions.", [this_stag]))
 zone_2.append(SimpleRoom([2, 5], [["north", 3], ["west", 0]], "The face of a rocky cliff abruptly ends in a precipitous fall to the ocean, blocking movement eest and south respectively. But the woods you're in extend in all other directions."))
 
+zones = [zone_0, zone_1, zone_2]
 
-THIS_WORLD = SimpleWorld([zone_0, zone_1, zone_2])
+
+THIS_WORLD = SimpleWorld(zones)

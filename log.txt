@@ -248,3 +248,177 @@ KeyboardInterrupt
 20120126:172157: >> Listening for connections on port 7777.  CTRL-C to break.
 20120126:172200: ++ Opened connection to 127.0.0.1:46359
 20120126:172208: -- Lost connection to 127.0.0.1:46359
+20131226:092711: >> Listening for connections on port 7777.  CTRL-C to break.
+20131226:092759: >> Listening for connections on port 7777.  CTRL-C to break.
+20131226:092801: >> FATAL ERROR
+    Traceback (most recent call last):
+      File "mud_main.py", line 167, in <module>
+        do_tick()
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/scheduler/scheduler.py", line 13, in do_tick
+        event()
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/mob.py", line 23, in <lambda>
+        schedule_event(0, lambda: self.cogitate())
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/mob.py", line 78, in cogitate
+        schedule_event(randint(10,30), lambda: self.move_in_zone())
+    NameError: global name 'randint' is not defined
+    
+20131226:092801: >> Server shutdown.
+20131226:092849: >> Listening for connections on port 7777.  CTRL-C to break.
+20131226:092909: ++ Opened connection to 127.0.0.1:46211
+20131226:092928: >> FATAL ERROR
+    Traceback (most recent call last):
+      File "mud_main.py", line 160, in <module>
+        process_clients()       ## Check for client input
+      File "mud_main.py", line 83, in process_clients
+        client.character.processor(client.character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/login_universe/universe.py", line 213, in process
+        character = simple_universe.init_character(character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/universe.py", line 88, in init_character
+        character.client().character = SimpleCharacter(character)
+    NameError: global name 'SimpleCharacter' is not defined
+    
+20131226:092928: >> Server shutdown.
+20131226:093037: >> Listening for connections on port 7777.  CTRL-C to break.
+20131226:093041: ++ Opened connection to 127.0.0.1:46227
+20131226:093057: >> FATAL ERROR
+    Traceback (most recent call last):
+      File "mud_main.py", line 160, in <module>
+        process_clients()       ## Check for client input
+      File "mud_main.py", line 83, in process_clients
+        client.character.processor(client.character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/login_universe/universe.py", line 213, in process
+        character = simple_universe.init_character(character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/universe.py", line 89, in init_character
+        character.client().character = SimpleCharacter(character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/character.py", line 16, in __init__
+        self.container = THIS_WORLD.zones[DEFAULT_LOCATION[0]][DEFAULT_LOCATION[1]]
+    NameError: global name 'THIS_WORLD' is not defined
+    
+20131226:093057: >> Server shutdown.
+20131226:093219: >> Listening for connections on port 7777.  CTRL-C to break.
+20131226:093222: ++ Opened connection to 127.0.0.1:46242
+20131226:093241: >> FATAL ERROR
+    Traceback (most recent call last):
+      File "mud_main.py", line 160, in <module>
+        process_clients()       ## Check for client input
+      File "mud_main.py", line 83, in process_clients
+        client.character.processor(client.character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/login_universe/universe.py", line 213, in process
+        character = simple_universe.init_character(character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/universe.py", line 89, in init_character
+        character.client().character = SimpleCharacter(character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/character.py", line 25, in __init__
+        self.processor = process
+    NameError: global name 'process' is not defined
+    
+20131226:093241: >> Server shutdown.
+20131226:093952: >> Listening for connections on port 7777.  CTRL-C to break.
+20131226:093956: ++ Opened connection to 127.0.0.1:46299
+20131226:094006: >> FATAL ERROR
+    Traceback (most recent call last):
+      File "mud_main.py", line 160, in <module>
+        process_clients()       ## Check for client input
+      File "mud_main.py", line 83, in process_clients
+        client.character.processor(client.character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/login_universe/universe.py", line 213, in process
+        character = simple_universe.init_character(character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/character.py", line 165, in init_character
+        SimpleStim(STIM_VISUAL, this_message, False, [character.room()], [character])
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/stim.py", line 24, in __init__
+        self.emit()
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/stim.py", line 45, in emit
+        process(content, self)
+    NameError: global name 'process' is not defined
+    
+20131226:094006: >> Server shutdown.
+20131226:094724: >> Listening for connections on port 7777.  CTRL-C to break.
+20131226:094727: ++ Opened connection to 127.0.0.1:46627
+20131226:094756: >> FATAL ERROR
+    Traceback (most recent call last):
+      File "mud_main.py", line 160, in <module>
+        process_clients()       ## Check for client input
+      File "mud_main.py", line 83, in process_clients
+        client.character.processor(client.character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/login_universe/universe.py", line 213, in process
+        character = simple_universe.init_character(character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/character.py", line 132, in init_character
+        process(character, "look")
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/process.py", line 13, in process
+        [verb, rest] = parse.verb(thisInput)
+    NameError: global name 'parse' is not defined
+    
+20131226:094756: >> Server shutdown.
+20131226:094846: >> Listening for connections on port 7777.  CTRL-C to break.
+20131226:094848: ++ Opened connection to 127.0.0.1:46643
+20131226:094902: >> FATAL ERROR
+    Traceback (most recent call last):
+      File "mud_main.py", line 160, in <module>
+        process_clients()       ## Check for client input
+      File "mud_main.py", line 83, in process_clients
+        client.character.processor(client.character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/login_universe/universe.py", line 213, in process
+        character = simple_universe.init_character(character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/character.py", line 135, in init_character
+        SimpleStim(STIM_VISUAL, this_message, False, [character.room()], [character])
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/stim.py", line 26, in __init__
+        self.emit()
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/stim.py", line 47, in emit
+        process(content, self)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/process.py", line 11, in process
+        character.process_stim(thisInput)
+    AttributeError: SimpleThing instance has no attribute 'process_stim'
+    
+20131226:094902: >> Server shutdown.
+20131226:095054: >> Listening for connections on port 7777.  CTRL-C to break.
+20131226:095057: ++ Opened connection to 127.0.0.1:46660
+20131226:095108: >> FATAL ERROR
+    Traceback (most recent call last):
+      File "mud_main.py", line 160, in <module>
+        process_clients()       ## Check for client input
+      File "mud_main.py", line 83, in process_clients
+        client.character.processor(client.character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/login_universe/universe.py", line 213, in process
+        character = simple_universe.init_character(character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/character.py", line 135, in init_character
+        SimpleStim(STIM_VISUAL, this_message, False, [character.room()], [character])
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/stim.py", line 26, in __init__
+        self.emit()
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/stim.py", line 47, in emit
+        process(content, self)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/process.py", line 13, in process
+        character.process_stim(thisInput)
+    AttributeError: SimpleThing instance has no attribute 'process_stim'
+    
+20131226:095108: >> Server shutdown.
+20131226:095732: >> Listening for connections on port 7777.  CTRL-C to break.
+20131226:095735: ++ Opened connection to 127.0.0.1:46726
+20131226:095756: >> FATAL ERROR
+    Traceback (most recent call last):
+      File "mud_main.py", line 160, in <module>
+        process_clients()       ## Check for client input
+      File "mud_main.py", line 83, in process_clients
+        client.character.processor(client.character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/process.py", line 25, in process
+        action[1](rest)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/simple_player_attachments.py", line 32, in do_go
+        SimpleStim(STIM_VISUAL, this_message, False,
+    NameError: global name 'SimpleStim' is not defined
+    
+20131226:095756: >> Server shutdown.
+20131226:095839: >> Listening for connections on port 7777.  CTRL-C to break.
+20131226:095841: ++ Opened connection to 127.0.0.1:46737
+20131226:095847: >> FATAL ERROR
+    Traceback (most recent call last):
+      File "mud_main.py", line 160, in <module>
+        process_clients()       ## Check for client input
+      File "mud_main.py", line 83, in process_clients
+        client.character.processor(client.character)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/process.py", line 25, in process
+        action[1](rest)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/simple_player_attachments.py", line 35, in do_go
+        new_room = self.character.room().resolve_exit(an_exit)
+      File "/home/joseph/Dropbox/Hacking/RoverMUD/simple_universe/room.py", line 25, in resolve_exit
+        return THIS_WORLD.zones[self.ID[0]][the_exit[1]]
+    NameError: global name 'THIS_WORLD' is not defined
+    
+20131226:095847: >> Server shutdown.

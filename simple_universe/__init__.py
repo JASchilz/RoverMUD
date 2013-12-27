@@ -13,8 +13,7 @@
 #------------------------------------------------------------------------------
 
 # from universe import process_clients
-from universe import SimpleCharacter
-from universe import init_character
+from character import SimpleCharacter, init_character
 
 
 
