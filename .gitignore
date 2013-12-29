@@ -1,1 +1,4 @@
 *.pyc
+log.txt
+*~
+login_universe/character_list.p

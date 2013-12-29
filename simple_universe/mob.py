@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, choice
 
 from scheduler import schedule_event
 
