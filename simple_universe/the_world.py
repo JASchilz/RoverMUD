@@ -11,7 +11,7 @@ DEFAULT_LOCATION = [1, 0]
 this_clock = SimpleThing("a bronze clock",
                 "This is a large bronze clock, topped with a statue of an angel.",
                 ["clock"])
-this_stag = SimpleMob("a muscular stag", "This is a large brown stag.",
+this_stag = SimpleMob("a muscular stag", "This is a large brown stag.", 5,
                 ["stag"], False)
 
 

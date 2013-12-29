@@ -1,5 +1,8 @@
 from basics import BaseAttachment
+from parser import parse
 from stim import SimpleStim, STIM_VISUAL, STIM_AUDIO, STIM_DAMAGE
+
+from process import process
 
 class PlayerLegs(BaseAttachment):
 
@@ -105,9 +108,9 @@ class PlayerArms(BaseAttachment):
         if not rest:
             self.character.to_client.append("OK, but take what?")
         else:
-            thisParse = parse.parse(True, rest)
+            thisParse = parse(True, rest)
 
-            theObject = find(self.character, thisParse)
+            theObject = self.character.find(thisParse)
 
             if theObject:
 
@@ -134,11 +137,11 @@ class PlayerArms(BaseAttachment):
     def do_drop(self, rest):
 
         if not rest:
-            self.character.to_client.append("OK, but take what?")
+            self.character.to_client.append("OK, but drop what?")
         else:
-            thisParse = parse.parse(True, rest)
+            thisParse = parse(True, rest)
 
-            theObject = find(self.character, thisParse, self.character.inventory)
+            theObject = self.character.find(thisParse, self.character.inventory)
 
             if theObject:
                 theObject.move_to(self.character.room(), self.character.room().contents)
@@ -153,11 +156,11 @@ class PlayerArms(BaseAttachment):
     def do_hit(self, rest):
 
         if not rest:
-            self.character.to_client.append("OK, but take what?")
+            self.character.to_client.append("OK, but hit what?")
         else:
-            thisParse = parse.parse(True, rest)
+            thisParse = parse(True, rest)
 
-            theObject = find(self.character, thisParse, self.character.room().contents)
+            theObject = self.character.find(thisParse, self.character.room().contents)
 
             if theObject:
                 if theObject.__class__.__name__ == "SimpleCharacter" or theObject.__class__.__name__ == "SimpleMob":
@@ -215,13 +218,12 @@ class PlayerEyes(BaseAttachment):
                 
             self.character.to_client.append(exits_description)
         else:
-            thisParse = parse.parse(True, rest)
+            thisParse = parse(True, rest)
 
-            theObject = find(self.character, thisParse)
+            theObject = self.character.find(thisParse)
 
             if theObject:
                 self.character.to_client.append(theObject.short_description)
-
 
             else:
                 self.character.to_client.append("I can't find the thing you'd \

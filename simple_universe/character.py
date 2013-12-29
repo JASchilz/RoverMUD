@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------
-#   login_universe/universe.py
+#   login_universe/character.py
 #   Copyright 2011 Joseph Schilz
 #   Figure out license
 #------------------------------------------------------------------------------
@@ -73,6 +73,20 @@ class SimpleCharacter(SimpleMob, BaseCharacter):
                 # Figure out some more stuff to do here later.
         else:
             self.to_client.append(stim.stim_string)
+            
+    def find(self, subParse, theList = False):
+            
+        if subParse:
+
+            if not theList:
+                theList = self.room().contents
+
+            for content in theList:
+                for keyword in content.keywords:
+                    if keyword == subParse[0]:
+                        return content
+
+        return False
 
 
     def __getstate__(self):
@@ -86,26 +100,10 @@ class SimpleCharacter(SimpleMob, BaseCharacter):
         thisDict['container'] = THIS_WORLD.zones[thisDict['container'][0]][thisDict['container'][1]]
         thisDict['containment'] = False
         self.__dict__ = thisDict
-        
 
 
 
 
-
-
-def find(character, subParse, theList = False):
-            
-    if subParse:
-
-        if not theList:
-            theList = character.room().contents
-
-        for content in theList:
-            for keyword in content.keywords:
-                if keyword == subParse[0]:
-                    return content
-
-    return False
 
 def disconnect(character):
 

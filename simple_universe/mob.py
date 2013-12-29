@@ -1,9 +1,12 @@
 from random import randint, choice
+from copy import copy
 
 from scheduler import schedule_event
 
 from thing import SimpleThing
 from world_basics import THE_TRASH, A_CORPSE
+
+from stim import SimpleStim, STIM_DAMAGE
 
 class SimpleMob(SimpleThing):
     
@@ -12,11 +15,14 @@ class SimpleMob(SimpleThing):
 
     where_goes_when_dies = THE_TRASH
 
-    def __init__(self, name, description, keywords=[], takable=False):
+    def __init__(self, name, description, hp, keywords=[], takable=False):
 
         self.name = name
         self.description = description
         self.keywords = keywords
+        
+        self.current_hp = hp
+        self.max_hp = hp
 
         self.takable = takable
 
@@ -26,17 +32,17 @@ class SimpleMob(SimpleThing):
 
     def make_corpse(self):
 
-        new_corpse = copy.copy(A_CORPSE)
+        new_corpse = copy(A_CORPSE)
         new_corpse.name += self.name
         new_corpse.description += self.name + "."
         new_corpse.short_description = new_corpse.name
 
         return new_corpse
 
-    def die(mob):
+    def die(self):
     
-        new_corpse = make_corpse(mob)
-        new_corpse.move_to(mob.room(), mob.room().contents)
+        new_corpse = self.make_corpse()
+        new_corpse.move_to(self.room(), self.room().contents)
         
         self.move_to(self.where_goes_when_dies,
                     self.where_goes_when_dies.contents)
@@ -72,7 +78,7 @@ class SimpleMob(SimpleThing):
 
             if self.current_hp <= 0 and self.alive:
                 self.alive = False
-                die(self)
+                self.die()
                 
 
     def cogitate(self):

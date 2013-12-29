@@ -10,6 +10,8 @@ class SimpleRoom():
         self.ID = ID
         self.exits = exits
         self.description = description
+        
+        self.THIS_WORLD = False
 
         self.contents = []
         if contents:
@@ -19,11 +21,15 @@ class SimpleRoom():
     def resolve_exit(self, the_exit):
 
         if type(the_exit[1]) == type([]):
-            return THIS_WORLD.zones[the_exit[1][0]][the_exit[1][1]]
+            return self.THIS_WORLD.zones[the_exit[1][0]][the_exit[1][1]]
 
         else:
-            return THIS_WORLD.zones[self.ID[0]][the_exit[1]]
+            return self.THIS_WORLD.zones[self.ID[0]][the_exit[1]]
 
     def zone(self):
 
-        return THIS_WORLD.zones[self.ID[0]]
+        return self.THIS_WORLD.zones[self.ID[0]]
+        
+    def set_world(self, world):
+    
+        self.THIS_WORLD = world
