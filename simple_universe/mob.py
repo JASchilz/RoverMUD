@@ -6,7 +6,7 @@ from scheduler import schedule_event
 from thing import SimpleThing
 from world_basics import THE_TRASH, A_CORPSE
 
-from stim import SimpleStim, STIM_DAMAGE
+from stim import SimpleStim, STIM_DAMAGE, STIM_VISUAL
 
 class SimpleMob(SimpleThing):
     
