@@ -1,4 +1,4 @@
-import parser as parse
+import interpreter as interpret
 
 def process(character, thisInput = False):
 
@@ -12,7 +12,7 @@ def process(character, thisInput = False):
             
 
     elif thisInput:
-        [verb, rest] = parse.verb(thisInput)
+        [verb, rest] = interpret.verb(thisInput)
         
         action_found = False
 

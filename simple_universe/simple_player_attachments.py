@@ -1,5 +1,5 @@
 from basics import BaseAttachment
-from parser import parse
+from interpreter import interpret
 from stim import SimpleStim, STIM_VISUAL, STIM_AUDIO, STIM_DAMAGE
 
 from process import process
@@ -108,7 +108,7 @@ class PlayerArms(BaseAttachment):
         if not rest:
             self.character.to_client.append("OK, but take what?")
         else:
-            thisParse = parse(True, rest)
+            thisParse = interpret(True, rest)
 
             theObject = self.character.find(thisParse)
 
@@ -139,7 +139,7 @@ class PlayerArms(BaseAttachment):
         if not rest:
             self.character.to_client.append("OK, but drop what?")
         else:
-            thisParse = parse(True, rest)
+            thisParse = interpret(True, rest)
 
             theObject = self.character.find(thisParse, self.character.inventory)
 
@@ -158,7 +158,7 @@ class PlayerArms(BaseAttachment):
         if not rest:
             self.character.to_client.append("OK, but hit what?")
         else:
-            thisParse = parse(True, rest)
+            thisParse = interpret(True, rest)
 
             theObject = self.character.find(thisParse, self.character.room().contents)
 
@@ -218,7 +218,7 @@ class PlayerEyes(BaseAttachment):
                 
             self.character.to_client.append(exits_description)
         else:
-            thisParse = parse(True, rest)
+            thisParse = interpret(True, rest)
 
             theObject = self.character.find(thisParse)
 

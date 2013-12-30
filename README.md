@@ -39,7 +39,6 @@ You may then telnet to the server on port 7777. Recommend running RoverMUD serve
 
 Type 'help' after logging in to see available commands.
 
-Windows users will be affected by an import error in basic_player_attachments.py. The temporary fix is to move parser.py from parser into simple_universe.
 
 Status
 ------
