@@ -24,12 +24,12 @@ Goals
 This project will produce a well documented and architectured MUD that demonstrates the capability and methodology of the codebase. This project will not produce a fully-featured, production MUD. I would happily connect developers who are interested in working together on such a project, or help manage pull requests for such a project.
 
 Requires
-========
+--------
 
 * python 2.7+ (2.6+?)
 
 Usage
-=====
+-----
 
 ```
 $ python mud_main.py
@@ -42,10 +42,9 @@ Type 'help' after logging in to see available commands.
 Windows users will be affected by an import error in basic_player_attachments.py. The temporary fix is to move parser.py from parser into simple_universe.
 
 Status
-======
+------
 
-What Works
-----------
+### What Works
 
 * Creating a character
 * Logging in
@@ -54,28 +53,25 @@ What Works
 * Looking at things
 * Hitting and killing things
 
-What Will Work After Refactor Completed
----------------------------------------
+### What Will Work After Refactor Completed
 
 * The other commands in the help menu.
 
 
-Immediate To-Do
----------------
+### Immediate To-Do
 
 * More architectural refactor to be completed.
 * Move away from pickle for storage.
 * Comments.
 * Headers.
 
-Later To-Do
------------
+### Later To-Do
 
 * Building the simple universe into a more functional MUD.
 
 
 License
-=======
+-------
 
 Apache License v2
 
