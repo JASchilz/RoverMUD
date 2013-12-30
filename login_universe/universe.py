@@ -58,9 +58,18 @@ class login_character(BaseCharacter):
 
             self.logged_in = base_character.logged_in
             self.pass_salt = base_character.pass_salt
-        
-
             
+        self.disconnector = disconnect
+        
+        
+def disconnect(character):
+    
+    
+    # Note to self: decide whether it is sometimes necessary to remove
+    # the character from the character list.
+
+    character.logged_in = False
+
 
 def process(character):
 
