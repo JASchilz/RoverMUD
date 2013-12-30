@@ -1,3 +1,9 @@
+#------------------------------------------------------------------------------
+#   simple_universe/mob.py
+#   Copyright 2011 Joseph Schilz
+#   Licensed under Apache v2
+#------------------------------------------------------------------------------
+
 from random import randint, choice
 from copy import copy
 

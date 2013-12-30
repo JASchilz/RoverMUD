@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 #   login_universe/universe.py
 #   Copyright 2011 Joseph Schilz
-#   Figure out license
+#   Licensed under Apache v2
 #------------------------------------------------------------------------------
 
 import os

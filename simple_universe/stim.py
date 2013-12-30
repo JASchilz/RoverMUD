@@ -1,3 +1,9 @@
+#------------------------------------------------------------------------------
+#   simple_universe/stim.py
+#   Copyright 2011 Joseph Schilz
+#   Licensed under Apache v2
+#------------------------------------------------------------------------------
+
 from process import process
 
 STIM_VISUAL = 1

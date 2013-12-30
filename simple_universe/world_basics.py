@@ -1,3 +1,9 @@
+#------------------------------------------------------------------------------
+#   simple_universe/world_basics.py
+#   Copyright 2011 Joseph Schilz
+#   Licensed under Apache v2
+#------------------------------------------------------------------------------
+
 from thing import SimpleThing
 from room import SimpleRoom
 

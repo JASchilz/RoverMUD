@@ -45,6 +45,7 @@ Status
 
 ### What Works
 
+* Scheduling
 * Creating a character
 * Logging in
 * Moving around
@@ -56,13 +57,12 @@ Status
 
 * The other commands in the help menu.
 
-
 ### Immediate To-Do
 
+* Merge character and mob.
 * More architectural refactor to be completed.
 * Move away from pickle for storage.
 * Comments.
-* Headers.
 
 ### Later To-Do
 

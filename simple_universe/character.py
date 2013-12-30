@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
-#   login_universe/character.py
+#   simple_universe/character.py
 #   Copyright 2011 Joseph Schilz
-#   Figure out license
+#   Licensed under Apache v2
 #------------------------------------------------------------------------------
 from random import random, randint, choice
 import copy
@@ -16,8 +16,6 @@ from thing import SimpleThing
 from basics import BaseCharacter
 from mob import SimpleMob
 from process import process
-
-
 from the_world import DEFAULT_LOCATION, THIS_WORLD
 from world_basics import LIMBO
 

@@ -1,3 +1,9 @@
+#------------------------------------------------------------------------------
+#   interpreter/interpreter.py
+#   Copyright 2011 Joseph Schilz
+#   Licensed under Apache v2
+#------------------------------------------------------------------------------
+
 articles = [" a ", " the "]
 
 def verb(command):

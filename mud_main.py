@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 #------------------------------------------------------------------------------
 #   mud_main.py
-#   Copyright 2012 Joseph Schilz
 #   
 #   Licensed under the Apache License, Version 2.0 (the "License"); you may
 #   not use this file except in compliance with the License. You may obtain a
@@ -13,6 +12,7 @@
 #   under the License.
 #
 #   Derived in part from miniboa chat_demo.py, Copyright 2009 Jim Storch.
+#   Changes copyright 2011 Joseph Schilz
 #------------------------------------------------------------------------------
 
 import textwrap

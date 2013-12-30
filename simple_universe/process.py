@@ -1,3 +1,9 @@
+#------------------------------------------------------------------------------
+#   simple_universe/process.py
+#   Copyright 2011 Joseph Schilz
+#   Licensed under Apache v2
+#------------------------------------------------------------------------------
+
 import interpreter as interpret
 
 def process(character, thisInput = False):
