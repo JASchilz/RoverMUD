@@ -36,6 +36,7 @@ class SimpleMob(SimpleThing):
         new_corpse.name += self.name
         new_corpse.description += self.name + "."
         new_corpse.short_description = new_corpse.name
+        
 
         return new_corpse
 
