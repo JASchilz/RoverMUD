@@ -57,6 +57,9 @@ class SimpleCharacter(SimpleMob, BaseCharacter):
 
         self.short_description = self.name
         self.keywords = [self.name.lower()]
+        
+        self.max_hp = 10
+        self.current_hp = 10
 
     def process_stim(self, stim):
 

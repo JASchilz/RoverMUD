@@ -57,10 +57,7 @@ Status
 * Taking and dropping objects
 * Looking at things
 * Hitting and killing things
-
-### What Will Work After Refactor Completed
-
-* The other commands in the help menu.
+* All commands in 'help'.
 
 ### Immediate To-Do
 
