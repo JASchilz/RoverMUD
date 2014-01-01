@@ -49,8 +49,6 @@ class BaseCharacter(BaseThing):
 
     prompt = ''
 
-    disconnector = False
-
     client = False
 
     logged_in = False
@@ -61,6 +59,10 @@ class BaseCharacter(BaseThing):
     def __init__(self, client = False):
 
         self.client = weakref.ref(client)
+        
+    def disconnect(self):
+    
+        self.logged_in = False
 
 class BaseAttachment():
 

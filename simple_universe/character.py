@@ -40,7 +40,6 @@ class SimpleCharacter(SimpleMob, BaseCharacter):
 
         self.client = base_character.client
         self.processor = process
-        self.disconnector = disconnect
 
         self.logged_in = base_character.logged_in
 
@@ -88,7 +87,15 @@ class SimpleCharacter(SimpleMob, BaseCharacter):
                         return content
 
         return False
+        
+    def disconnect(self):
 
+        global CHARACTER_LIST
+
+        self.logged_in = False
+        self.room().contents.remove(self)
+
+        CHARACTER_LIST.remove(self)
 
     def __getstate__(self):
         result = self.__dict__.copy()
@@ -102,18 +109,6 @@ class SimpleCharacter(SimpleMob, BaseCharacter):
         thisDict['containment'] = False
         self.__dict__ = thisDict
 
-
-
-
-
-def disconnect(character):
-
-    global CHARACTER_LIST
-
-    character.logged_in = False
-    character.room().contents.remove(character)
-
-    CHARACTER_LIST.remove(character)
 
                         
 def init_character(character):

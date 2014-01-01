@@ -54,7 +54,7 @@ def on_disconnect(client):
     log("-- Lost connection to %s" % client.addrport())
     client.character.logged_in = False
     client.character.client = False
-    client.character.disconnector(client.character)
+    client.character.disconnect()
     client.send("\nDisconnecting\n")
     CLIENT_LIST.remove(client)
 

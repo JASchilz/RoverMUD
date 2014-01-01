@@ -57,14 +57,14 @@ Status
 * Taking and dropping objects
 * Looking at things
 * Hitting and killing things
-* All commands in 'help'.
+* All commands in 'help'
 
 ### Immediate To-Do
 
-* Merge character and mob.
-* More architectural refactor to be completed.
-* Move from pickle to sqlite for storage.
-* Comments.
+* Merge character and mob
+* More architectural refactor to be completed
+* Move from pickle to sqlite for storage
+* Comments
 
 ### Later To-Do
 

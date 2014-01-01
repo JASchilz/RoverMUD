@@ -6,7 +6,6 @@
 
 import os
 import pickle
-import weakref
 import hashlib
 
 from basics import BaseCharacter
@@ -19,6 +18,8 @@ import simple_universe
 # log in to the MUD.
 CHARACTER_LIST = []
 
+# To create a custom title screen, place it in the text file indicated
+# by title_screen_rel_path
 title_screen_rel_path = "title_screen.txt"
 title_screen_default_rel_path = "title_screen_default.txt"
 
@@ -31,12 +32,14 @@ title_screen_default_file_path = os.path.join(this_dir, title_screen_default_rel
 
 character_file_abs_file_path = os.path.join(this_dir, character_file_rel_path)
 
+# Character login states.
 AWAITING_NAME_QUERY = 0
 AWAITING_NAME = 1
 AWAITING_PASSWORD = 2
 AWAITING_VALIDATION = 3
 AWAITING_INJECTION = 4
 
+# Character creation states.
 AWAITING_NEW_CHARACTER_NAME = 10
 AWAITING_NEW_CHARACTER_NAME_CONF = 11
 AWAITING_NEW_PASSWORD = 12
@@ -44,15 +47,14 @@ AWAITING_NEW_PASSWORD_CONF = 13
 AWAITING_SEX_SELECTION = 14
 AWAITING_NEW_CHARACTER_FINALIZATION = 15
 
-class login_character(BaseCharacter):
+class LoginCharacter(BaseCharacter):
+    '''
+    A character in the login universe.
+    '''
 
+    # On initialization, we are awaiting the client's response
+    # to the game's name query.
     login_state = AWAITING_NAME_QUERY
-
-    supposed_character_name = ''
-    supposed_password = ''
-
-    new_character_name = ''
-    new_password = ''
 
     def __init__(self, base_character = False):
 
@@ -66,19 +68,12 @@ class login_character(BaseCharacter):
             self.logged_in = base_character.logged_in
             self.pass_salt = base_character.pass_salt
             
-        self.disconnector = disconnect
-        
-        
-def disconnect(character):
-    
-    
-    # Note to self: decide whether it is sometimes necessary to remove
-    # the character from the character list.
-
-    character.logged_in = False
 
 
 def process(character):
+    '''
+    Process the input and output of the LoginCharacter.
+    '''
 
     if character.login_state == AWAITING_NAME_QUERY:
         character.to_client.append("Please enter your character name: ")
@@ -234,6 +229,9 @@ def process(character):
 
 
 def clean_name(name):
+    '''
+    Cleans a proposed character name.
+    '''
 
     new_name = ''.join(ch for ch in name if ch.isalpha())
     new_name = new_name.title()
@@ -241,6 +239,9 @@ def clean_name(name):
     return new_name
 
 def is_character_of_name(name):
+    '''
+    Checks whether there is a character of the given name.
+    '''
 
     for character in CHARACTER_LIST:
         if character.name == name:
@@ -250,7 +251,11 @@ def is_character_of_name(name):
 
                         
 def init_character(character):
+    '''
+    Initialize characters into the login_universe.
+    '''
 
+    # Present the title screen
     try:
         title_screen = open(title_screen_file_path, 'r')
     except IOError:
@@ -265,11 +270,18 @@ def init_character(character):
         
     character.to_client.append(title_text)
 
-    character.client().character = login_character(character)
+    # Make the character a LoginCharacter
+    character.client().character = LoginCharacter(character)
     character.client().character.processor = process
+    
+    # Clear the character's input queue
     character.client().character.from_client = [];
 
 def backup_data():
+    '''
+    Backs up all player characters to file, logged in or not.
+    '''
+    
     # We have to momentarily remove everyone's client ref in order to
     # pickle the character file.
     clientDict = {}
@@ -286,6 +298,9 @@ def backup_data():
 
 
 def restore_data():
+    '''
+    Restores data on server boot
+    '''
 
     global CHARACTER_LIST
 
