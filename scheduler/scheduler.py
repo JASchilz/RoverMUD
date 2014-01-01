@@ -7,7 +7,19 @@
 schedule = {}
 time = 0
 
+def schedule_event(delta_t, event):
+    '''
+    Schedule an event delta_t ticks in the future.
+    '''
+
+    global schedule
+
+    schedule.setdefault(time + delta_t, []).append(event)
+
 def do_tick():
+    '''
+    Execute scheduled events.
+    '''
 
     global time
     time += 1
@@ -21,8 +33,4 @@ def do_tick():
             break
 
 
-def schedule_event(delta_t, event):
 
-    global schedule
-
-    schedule.setdefault(time + delta_t, []).append(event)

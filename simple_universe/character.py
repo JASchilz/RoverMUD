@@ -3,21 +3,16 @@
 #   Copyright 2011 Joseph Schilz
 #   Licensed under Apache v2
 #------------------------------------------------------------------------------
-from random import random, randint, choice
-import copy
 
-from scheduler import schedule_event
+import copy
 
 from stim import SimpleStim, STIM_VISUAL, STIM_AUDIO, STIM_VISUAL
 from simple_player_attachments import *
-from the_world import SimpleRoom, SimpleWorld
 from world_basics import LIMBO
-from thing import SimpleThing
 from basics import BaseCharacter
 from mob import SimpleMob
 from process import process
 from the_world import DEFAULT_LOCATION, THIS_WORLD
-from world_basics import LIMBO
 
 # Here, CHARACTER_LIST is the transient list of characters that
 # are actually in the universe.
@@ -26,7 +21,7 @@ CHARACTER_LIST = []
 
 class SimpleCharacter(SimpleMob, BaseCharacter):
 
-    where_goes_when_dies = LIMBO
+    where_goes_when_dies = LIMBO # Need this?
 
     def __init__(self, base_character):
 
@@ -112,7 +107,11 @@ class SimpleCharacter(SimpleMob, BaseCharacter):
 
                         
 def init_character(character):
+    '''
+    Initialize a character into the simple_universe.
+    '''
 
+    # Make the character a simple character, if they are not already.
     if not character.__class__.__name__ == "SimpleCharacter": #or True:
 
         character.client().character = SimpleCharacter(character)
@@ -120,12 +119,16 @@ def init_character(character):
 
     character = character.client().character
 
+    # Put them into the character list.
     CHARACTER_LIST.append(character)
     
+    # Move the character into their room (refactor).
     character.move_to(character.room(), character.room().contents)
     process(character, "look")
 
+    # Emit a visual stimulation to the room, excluding the character.
     this_message = character.name + " has entered the room."
     SimpleStim(STIM_VISUAL, this_message, False, [character.room()], [character])
 
+    # Return the new character.
     return character

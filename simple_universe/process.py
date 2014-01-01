@@ -7,6 +7,9 @@
 import interpreter as interpret
 
 def process(character, thisInput = False):
+    '''
+    Process player commands and stimulation.
+    '''
 
     if not thisInput:
         if character.from_client:

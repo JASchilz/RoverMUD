@@ -8,11 +8,9 @@ from random import randint, choice
 from copy import copy
 
 from scheduler import schedule_event
-
 from thing import SimpleThing
 from world_basics import THE_TRASH, A_CORPSE
-
-from stim import SimpleStim, STIM_DAMAGE, STIM_VISUAL
+from stim import SimpleStim, STIM_DAMAGE, STIM_VISUAL, STIM_AUDIO
 
 class SimpleMob(SimpleThing):
     
@@ -34,9 +32,14 @@ class SimpleMob(SimpleThing):
 
         self.short_description = self.name
 
+        # NPCs have both stimulus response and self-directed action,
+        # as carried out by a scheduled 'cogitate' method.
         schedule_event(0, lambda: self.cogitate())
 
     def make_corpse(self):
+        '''
+        Make a corpse of self.
+        ''''
 
         new_corpse = copy(A_CORPSE)
         new_corpse.name += self.name
@@ -47,6 +50,9 @@ class SimpleMob(SimpleThing):
         return new_corpse
 
     def die(self):
+        '''
+        Dying.
+        '''
     
         new_corpse = self.make_corpse()
         new_corpse.move_to(self.room(), self.room().contents)
@@ -55,6 +61,9 @@ class SimpleMob(SimpleThing):
                     self.where_goes_when_dies.contents)
 
     def move_in_zone(self):
+        '''
+        Move randomly within the zone.
+        '''
 
         exit_list = []
         
@@ -90,5 +99,8 @@ class SimpleMob(SimpleThing):
 
     def cogitate(self):
 
+        # Move randomly within the zone.
         schedule_event(randint(10,30), lambda: self.move_in_zone())
+        
+        # Schedule the next cogitate in 30 ticks.
         schedule_event(30, lambda: self.cogitate())
