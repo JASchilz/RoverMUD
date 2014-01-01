@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>RoverMUD by JASchilz</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>RoverMUD</h1>
+        <p>Python, Object Oriented, Modular MUD</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/JASchilz/RoverMUD" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/JASchilz/RoverMUD/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/JASchilz/RoverMUD/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>
+<a name="rovermud" class="anchor" href="#rovermud"><span class="octicon octicon-link"></span></a>RoverMUD</h1>
+
+<p>A modular, object oriented, python based MUD.</p>
+
+<h2>
+<a name="notable-features" class="anchor" href="#notable-features"><span class="octicon octicon-link"></span></a>Notable Features</h2>
+
+<h3>
+<a name="attachments" class="anchor" href="#attachments"><span class="octicon octicon-link"></span></a>Attachments</h3>
+
+<p>"Attachments" allow perception and action.</p>
+
+<p>For example, the player has "player legs" attached to their character. The legs register their commands ("west", "east", "north", etc.,) with the character's interpreter.</p>
+
+<p>Likewise, "player eyes" register their "look" command with the character's interpreter. When another character enters the room, this action emits a visual stimulation targetted to all objects in the room; any player or non-player character with attached eyes will have that stimulation interpretted for them.</p>
+
+<p>This system of attachments was designed to accomodate non-player characters. A set of "non-player eyes" would deliver visual stimulation to the character in a more uninterpretted, code-like form, suitable for interpretation by artificial intelligence routines.</p>
+
+<h3>
+<a name="universe" class="anchor" href="#universe"><span class="octicon octicon-link"></span></a>Universe</h3>
+
+<p>A "universe" is an isolated gameplay state with its own mechanics. There is presently a "login" universe in which the player creates a character or logs in, and a "simple" universe which will be included in the development and release versions of this project. A character is created in the login universe when the player initiates a connection and then translated into a simple-universe character and placed in the "simple" universe when they complete login. In principle, there could be multiple, isolated play-universes or multiple, connected universes with methods to translate characters and events from one into the other.</p>
+
+<h2>
+<a name="goals" class="anchor" href="#goals"><span class="octicon octicon-link"></span></a>Goals</h2>
+
+<p>This project will produce a well documented and architectured MUD that demonstrates the capability and methodology of the codebase. This project will not produce a fully-featured, production MUD. I would happily connect developers who are interested in working together on such a project, or help manage pull requests for such a project.</p>
+
+<h2>
+<a name="more-information" class="anchor" href="#more-information"><span class="octicon octicon-link"></span></a>More Information</h2>
+
+<p>For more information, read notes.md.</p>
+
+<h2>
+<a name="requires" class="anchor" href="#requires"><span class="octicon octicon-link"></span></a>Requires</h2>
+
+<ul>
+<li>python 2.7+ (2.6+?)</li>
+</ul><h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<pre><code>$ python mud_main.py
+</code></pre>
+
+<p>You may then telnet to the server on port 7777. Recommend running RoverMUD server within a 'screen' session.</p>
+
+<p>Type 'help' after logging in to see available commands.</p>
+
+<h2>
+<a name="status" class="anchor" href="#status"><span class="octicon octicon-link"></span></a>Status</h2>
+
+<h3>
+<a name="what-works" class="anchor" href="#what-works"><span class="octicon octicon-link"></span></a>What Works</h3>
+
+<ul>
+<li>Scheduling</li>
+<li>Creating a character</li>
+<li>Logging in</li>
+<li>Moving around</li>
+<li>Taking and dropping objects</li>
+<li>Looking at things</li>
+<li>Hitting and killing things</li>
+<li>All commands in 'help'</li>
+</ul><h3>
+<a name="immediate-to-do" class="anchor" href="#immediate-to-do"><span class="octicon octicon-link"></span></a>Immediate To-Do</h3>
+
+<ul>
+<li>Merge character and mob</li>
+<li>More architectural refactor to be completed</li>
+<li>Move from pickle to sqlite for storage</li>
+<li>Comments</li>
+</ul><h3>
+<a name="later-to-do" class="anchor" href="#later-to-do"><span class="octicon octicon-link"></span></a>Later To-Do</h3>
+
+<ul>
+<li>Building the simple universe into a more functional MUD.</li>
+</ul><h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Apache License v2</p>
+
+<p>Copyright (c) 2013, Joseph Schilz, <a href="mailto:Joseph@Schilz.org">Joseph@Schilz.org</a></p>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/JASchilz">JASchilz</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
