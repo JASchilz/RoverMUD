@@ -18,7 +18,6 @@
 import textwrap
 import traceback
 from time import sleep
-from datetime import datetime
 
 from miniboa import TelnetServer
 
@@ -27,17 +26,18 @@ import login_universe
 from basics import BaseCharacter
 from scheduler import schedule_event, do_tick
 
+from log import log
 
-IDLE_TIMEOUT = 300
+
+IDLE_TIMEOUT = 300 # How many seconds to allow clients to idle.
+
+
 CLIENT_LIST = []
 SERVER_RUN = True
-
-TIME_FORMAT = '%Y%m%d:%H%M%S: '
 
 
 def on_connect(client):
     """
-    Sample on_connect function.
     Handles new connections.
     """
     log("++ Opened connection to %s" % client.addrport())
@@ -49,7 +49,6 @@ def on_connect(client):
 
 def on_disconnect(client):
     """
-    Sample on_disconnect function.
     Handles lost connections.
     """
     log("-- Lost connection to %s" % client.addrport())
@@ -107,28 +106,15 @@ def broadcast(msg):
     for client in CLIENT_LIST:
         client.send(msg)
 
-def log(msg):
-
-    if len(msg) > 0:
-        msg = msg[0] + msg[1:len(msg)].replace("\n", "\n    ")
-
-        with open("log.txt", "a") as myfile:
-            myfile.write(datetime.now().strftime(TIME_FORMAT) + msg + "\n")
-
-        print msg
-
-
-
-
 
 #------------------------------------------------------------------------------
 #       Main
 #------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-
-    ## Simple chat server to demonstrate connection handling via the
-    ## async and telnet modules.
+    """
+    Do the MUD.
+    """
 
     ## Create a telnet server with a port, address,
     ## a function to call with new connections
@@ -147,6 +133,9 @@ if __name__ == '__main__':
 
     login_universe.restore_data()
 
+    # A subtick occurs every .05 seconds. Every subtick the server
+    # takes and processes client input. Every 20 subticks, or one second,
+    # is a tick, in which the game executes its own logic.
     tickCount = 0
     subtickCount = 0
 
@@ -166,6 +155,7 @@ if __name__ == '__main__':
                 tickCount += 1
                 do_tick()
 
+            # Every 60 seconds, make a character backup.
             if (tickCount == 60 or tickCount % 360 == 0) and subtickCount == 0 and len(CLIENT_LIST) > 0:
                         
                 login_universe.backup_data()

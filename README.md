@@ -23,6 +23,11 @@ Goals
 
 This project will produce a well documented and architectured MUD that demonstrates the capability and methodology of the codebase. This project will not produce a fully-featured, production MUD. I would happily connect developers who are interested in working together on such a project, or help manage pull requests for such a project.
 
+More Information
+----------------
+
+For more information, read notes.md.
+
 Requires
 --------
 
@@ -61,7 +66,7 @@ Status
 
 * Merge character and mob.
 * More architectural refactor to be completed.
-* Move away from pickle for storage.
+* Move from pickle to sqlite for storage.
 * Comments.
 
 ### Later To-Do

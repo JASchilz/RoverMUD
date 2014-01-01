@@ -2,6 +2,10 @@
 #   basics/basics.py
 #   Copyright 2011 Joseph Schilz
 #   Licensed under Apache v2
+#
+#   These "base" objects are not used directly, but serve as parent classes
+#   for the "things" and "characters" that occupy all "universes".
+#
 #------------------------------------------------------------------------------
 
 import random
@@ -11,14 +15,22 @@ class BaseThing():
 
     processor = False
 
+    # All things occupy a container, such as a room or an inventory, and
+    # some things may serve as containment for other things.
     container = False
     containment = False
 
     def process_stimuli(self, stimuli):
+        """
+        This function is called to handle stimuli directed at the "thing".
+        """
 
         pass
 
     def move_to(self, container, containment):
+        """
+        Move a thing from one container to another.
+        """
 
         self.container = container
 

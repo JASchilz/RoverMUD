@@ -1,27 +1,34 @@
 #------------------------------------------------------------------------------
 #   login_universe/universe.py
-#   Copyright 2011 Joseph Schilz
+#   Copyright 2011-2013 Joseph Schilz
 #   Licensed under Apache v2
 #------------------------------------------------------------------------------
 
 import os
 import pickle
 import weakref
+import hashlib
 
 from basics import BaseCharacter
+from log import log
 
 import simple_universe
-import hashlib
+
 
 # CHARACTER_LIST is the persistant list of characters which can
 # log in to the MUD.
 CHARACTER_LIST = []
 
 title_screen_rel_path = "title_screen.txt"
+title_screen_default_rel_path = "title_screen_default.txt"
+
 character_file_rel_path = "character_list.p"
 
 this_dir = os.path.dirname(__file__)
-title_screen_abs_file_path = os.path.join(this_dir, title_screen_rel_path)
+
+title_screen_file_path = os.path.join(this_dir, title_screen_rel_path)
+title_screen_default_file_path = os.path.join(this_dir, title_screen_default_rel_path)
+
 character_file_abs_file_path = os.path.join(this_dir, character_file_rel_path)
 
 AWAITING_NAME_QUERY = 0
@@ -244,7 +251,13 @@ def is_character_of_name(name):
                         
 def init_character(character):
 
-    title_screen = open(title_screen_abs_file_path, 'r')
+    try:
+        title_screen = open(title_screen_file_path, 'r')
+    except IOError:
+        title_screen = open(title_screen_default_file_path, 'r')
+        
+        log("No custom title screen; using default.")
+
     title_text = ''
 
     for line in title_screen:
