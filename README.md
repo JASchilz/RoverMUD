@@ -23,6 +23,13 @@ Goals
 
 This project will produce a well documented and architectured MUD that demonstrates the capability and methodology of the codebase. This project will not produce a fully-featured, production MUD. I would happily connect developers who are interested in working together on such a project, or help manage pull requests for such a project.
 
+Contributing
+------------
+
+Anyone interested in helping the codebase move to sqlite may contact me. Due to the modularity of universes, I'm placing some unique requirements on the database system.
+
+Once I have completed some refactoring the project will be able to more flexibly integrate contributions.
+
 More Information
 ----------------
 
@@ -68,6 +75,7 @@ Status
 
 ### Later To-Do
 
+* OLC
 * Building the simple universe into a more functional MUD.
 
 
