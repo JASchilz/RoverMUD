@@ -55,6 +55,8 @@ Type 'help' after logging in to see available commands.
 Status
 ------
 
+Though the basic functions of a MUD are functional, I would consider the code 'unstable' until the items in the 'immediate to-do' have been completed. Any fork made at this point will not be compatible architecturally with the first release version.
+
 ### What Works
 
 * Scheduling
@@ -69,14 +71,16 @@ Status
 ### Immediate To-Do
 
 * Merge character and mob
-* More architectural refactor to be completed
+* Bring the attachment system to spec
 * Move from pickle to sqlite for storage
-* Comments
 
 ### Later To-Do
 
 * OLC
-* Building the simple universe into a more functional MUD.
+* Experience and leveling
+* Wearing and wielding
+* A larger world
+* NPC AI examples
 
 
 License
