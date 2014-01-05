@@ -28,7 +28,7 @@ class PlayerLegs(BaseAttachment):
     def do_go(self, rest):
 
         if not rest:
-            self.character.to_client.append("OK, but go where?")
+            self.character.brain.to_client.append("OK, but go where?")
 
         elif rest in ["north", "south", "east", "west", "up", "down"]:
 
@@ -57,11 +57,11 @@ class PlayerLegs(BaseAttachment):
                     break
 
             if not exit_found:
-                self.character.to_client.append(
+                self.character.brain.to_client.append(
                     "You can't got that way from here.")
 
         else:
-            self.character.to_client.append(
+            self.character.brain.to_client.append(
                 "I don't understand that location or direction.")
 
 class OOC_Commands(BaseAttachment):
@@ -86,13 +86,13 @@ class OOC_Commands(BaseAttachment):
             for action in attachment.action_matrix:
                 output += action[0] + "\t" + action[2] + "\n"
                 
-        self.character.to_client.append(output)
+        self.character.brain.to_client.append(output)
 
     def do_quit(self, rest):
         self.character.client().active = False
 
     def do_health(self, rest):
-        self.character.to_client.append("You have " +
+        self.character.brain.to_client.append("You have " +
                         str(self.character.current_hp) + " hit points.")
 
 class PlayerArms(BaseAttachment):
@@ -114,7 +114,7 @@ class PlayerArms(BaseAttachment):
     def do_take(self, rest):
 
         if not rest:
-            self.character.to_client.append("OK, but take what?")
+            self.character.brain.to_client.append("OK, but take what?")
         else:
             thisParse = interpret(True, rest)
 
@@ -123,11 +123,11 @@ class PlayerArms(BaseAttachment):
             if theObject:
 
                 if theObject == self.character:
-                    self.character.to_client.append("Let's not explore that \
+                    self.character.brain.to_client.append("Let's not explore that \
                         little conundrum, eh?")
                 elif theObject.takable == True:
                     theObject.move_to(self.character, self.character.inventory)
-                    self.character.to_client.append("You take " +
+                    self.character.brain.to_client.append("You take " +
                                     theObject.short_description + ".")
                     
                     this_message = (self.character.name + " picks up " +
@@ -136,16 +136,16 @@ class PlayerArms(BaseAttachment):
                                    [self.character.room()], [self.character])
                     
                 elif theObject.takable == False:
-                    self.character.to_client.append("You're unable to take \
+                    self.character.brain.to_client.append("You're unable to take \
                         that.")
             else:
-                self.character.to_client.append("I can't find the thing you'd \
+                self.character.brain.to_client.append("I can't find the thing you'd \
                         like to take.")
 
     def do_drop(self, rest):
 
         if not rest:
-            self.character.to_client.append("OK, but drop what?")
+            self.character.brain.to_client.append("OK, but drop what?")
         else:
             thisParse = interpret(True, rest)
 
@@ -153,18 +153,18 @@ class PlayerArms(BaseAttachment):
 
             if theObject:
                 theObject.move_to(self.character.room(), self.character.room().contents)
-                self.character.to_client.append("You drop " + theObject.short_description + ".")
+                self.character.brain.to_client.append("You drop " + theObject.short_description + ".")
                 
                 this_message = self.character.name + " sets down " + theObject.short_description + "."
                 SimpleStim(STIM_VISUAL, this_message, False, [self.character.room()], [self.character])
             else:
-                self.character.to_client.append("I can't find the thing you'd like to drop.")
+                self.character.brain.to_client.append("I can't find the thing you'd like to drop.")
                 
 
     def do_hit(self, rest):
 
         if not rest:
-            self.character.to_client.append("OK, but hit what?")
+            self.character.brain.to_client.append("OK, but hit what?")
         else:
             thisParse = interpret(True, rest)
 
@@ -173,7 +173,7 @@ class PlayerArms(BaseAttachment):
             if theObject:
                 if theObject.__class__.__name__ == "SimpleCharacter" or theObject.__class__.__name__ == "SimpleMob":
                     theObject.move_to(self.character.room(), self.character.room().contents)
-                    self.character.to_client.append("You hit " + theObject.short_description + ".")
+                    self.character.brain.to_client.append("You hit " + theObject.short_description + ".")
 
                     this_message = self.character.name + " smacks " + theObject.short_description + "."
                     SimpleStim(STIM_VISUAL, this_message, False, [self.character.room()], [self.character, theObject])
@@ -181,11 +181,11 @@ class PlayerArms(BaseAttachment):
                     this_message = self.character.name + " hits you."
                     SimpleStim(STIM_DAMAGE, this_message, 1, [theObject], [])
                 else:
-                    self.character.to_client.append("You hit " + theObject.short_description + ".")
+                    self.character.brain.to_client.append("You hit " + theObject.short_description + ".")
                     this_message = self.character.name + " smacks " + theObject.short_description + "."
                     SimpleStim(STIM_VISUAL, this_message, False, [self.character.room()], [self.character])
             else:
-                self.character.to_client.append("I can't find the thing you'd like to hit.")
+                self.character.brain.to_client.append("I can't find the thing you'd like to hit.")
         
 
 class PlayerEyes(BaseAttachment):
@@ -203,7 +203,7 @@ class PlayerEyes(BaseAttachment):
     def do_look(self, rest):
 
         if rest == "":
-            self.character.to_client.append(self.character.room().description)
+            self.character.brain.to_client.append(self.character.room().description)
             contents_description = "You see here: "
             for content in self.character.room().contents:
                 if not content == self.character:
@@ -211,7 +211,7 @@ class PlayerEyes(BaseAttachment):
 
             if not len(contents_description) == 14:
                 contents_description = contents_description[0:len(contents_description) - 2] + "."
-                self.character.to_client.append(contents_description)
+                self.character.brain.to_client.append(contents_description)
 
             exits_description = "Exits lead: "
             for an_exit in self.character.room().exits:
@@ -224,17 +224,17 @@ class PlayerEyes(BaseAttachment):
             else:
                 exits_description = exits_description[0:len(exits_description) - 2] + "."
                 
-            self.character.to_client.append(exits_description)
+            self.character.brain.to_client.append(exits_description)
         else:
             thisParse = interpret(True, rest)
 
             theObject = self.character.find(thisParse)
 
             if theObject:
-                self.character.to_client.append(theObject.short_description)
+                self.character.brain.to_client.append(theObject.short_description)
 
             else:
-                self.character.to_client.append("I can't find the thing you'd \
+                self.character.brain.to_client.append("I can't find the thing you'd \
                         like to look at.")
 
             
@@ -248,10 +248,28 @@ class PlayerEyes(BaseAttachment):
 
             if not len(contents_description) == 25:
                 contents_description = contents_description[0:len(contents_description) - 2] + "."
-                self.character.to_client.append(contents_description)
+                self.character.brain.to_client.append(contents_description)
 
             else:
-                self.character.to_client.append("Your inventory is empty.")
+                self.character.brain.to_client.append("Your inventory is empty.")
+                
+class PlayerBrain(BaseAttachment):
+
+    character = False
+
+    def __init__(self, character):
+        self.character = character
+        
+        self.to_client = []
+        
+        self.action_matrix = []
+        
+    def cogitate(self):
+        
+        if self.to_client:
+            self.character.to_client += self.to_client
+            
+        self.to_client = []
 
 
 
@@ -271,18 +289,18 @@ class PlayerMouth(BaseAttachment):
     def do_say(self, rest):
 
         if rest:
-            self.character.to_client.append("You say, '" + rest + "'")
+            self.character.brain.to_client.append("You say, '" + rest + "'")
             this_message = self.character.name + " says, '" + rest + "'"
             SimpleStim(STIM_AUDIO, this_message, False, [self.character.room()], [self.character])
         else:
             # improve with gender
-            self.character.to_client.append("You make a face as though you'd like to say something.")
+            self.character.brain.to_client.append("You make a face as though you'd like to say something.")
             this_message = self.character.name + " makes a face as though they want to say something."
             SimpleStim(STIM_VISUAL, this_message, False, [self.character.room()], [self.character])
 
     def do_shout(self, rest):
         if rest:
-            self.character.to_client.append("You shout out, '" + rest + "'")
+            self.character.brain.to_client.append("You shout out, '" + rest + "'")
             
             this_message = "From a distance, you hear " + self.character.name + " shout, '" + rest + "'"
             SimpleStim(STIM_AUDIO, this_message, False, [self.character.room().zone()], [self.character.room()])
@@ -293,9 +311,9 @@ class PlayerMouth(BaseAttachment):
         else:
             
             if random() < .7: # just being a bit funny here
-                self.character.to_client.append("You shout in frustration.")
+                self.character.brain.to_client.append("You shout in frustration.")
             else:
-                self.character.to_client.append("You shout in anger.")
+                self.character.brain.to_client.append("You shout in anger.")
                 
             this_message = "You hear someone shout out in frustration, or possibly anger."
             SimpleStim(STIM_AUDIO, this_message, False, [self.character.room().zone()], [self.character.room()])

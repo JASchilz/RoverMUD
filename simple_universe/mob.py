@@ -39,7 +39,7 @@ class SimpleMob(SimpleThing):
     def make_corpse(self):
         '''
         Make a corpse of self.
-        ''''
+        '''
 
         new_corpse = copy(A_CORPSE)
         new_corpse.name += self.name

@@ -71,7 +71,7 @@ Though the basic functions of a MUD are functional, I would consider the code 'u
 ### Immediate To-Do
 
 * Merge character and mob
-* Bring the attachment system to spec
+* Bring the attachment system, especially regarding perception, to spec
 * Move from pickle to sqlite for storage
 
 ### Later To-Do

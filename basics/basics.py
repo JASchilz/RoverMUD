@@ -55,10 +55,13 @@ class BaseCharacter(BaseThing):
     
     to_client = []
     from_client = []
+    
 
     def __init__(self, client = False):
 
         self.client = weakref.ref(client)
+        
+        self.attachments = []
         
     def disconnect(self):
     

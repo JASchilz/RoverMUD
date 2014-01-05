@@ -28,6 +28,7 @@ class SimpleCharacter(SimpleMob, BaseCharacter):
         self.container = THIS_WORLD.zones[DEFAULT_LOCATION[0]][DEFAULT_LOCATION[1]]
 
         self.attachments = []
+        self.brain = False
         self.inventory = []
 
         self.to_client = base_character.to_client
@@ -48,6 +49,8 @@ class SimpleCharacter(SimpleMob, BaseCharacter):
         self.attachments.append(PlayerEyes(self))
         self.attachments.append(PlayerMouth(self))
         self.attachments.append(PlayerArms(self))
+        
+        self.brain = PlayerBrain(self)
 
         self.short_description = self.name
         self.keywords = [self.name.lower()]
@@ -67,7 +70,8 @@ class SimpleCharacter(SimpleMob, BaseCharacter):
                 self.alive = False
                 # Figure out some more stuff to do here later.
         else:
-            self.to_client.append(stim.stim_string)
+            #self.to_client.append(stim.stim_string)
+            self.brain.to_client.append(stim.stim_string)
             
     def find(self, subParse, theList = False):
             

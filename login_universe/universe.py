@@ -8,7 +8,7 @@ import os
 import pickle
 import hashlib
 
-from basics import BaseCharacter
+from basics import BaseCharacter, BaseAttachment
 from log import log
 
 import simple_universe
@@ -57,6 +57,9 @@ class LoginCharacter(BaseCharacter):
     login_state = AWAITING_NAME_QUERY
 
     def __init__(self, base_character = False):
+    
+        self.attachments = []
+        self.brain = PlayerBrain(self)
 
         if base_character:
             self.to_client = base_character.to_client
@@ -67,6 +70,24 @@ class LoginCharacter(BaseCharacter):
 
             self.logged_in = base_character.logged_in
             self.pass_salt = base_character.pass_salt
+            
+            
+class PlayerBrain(BaseAttachment):
+
+    character = False
+
+    def __init__(self, character):
+        self.character = character
+        
+        self.to_client = []
+        self.action_matrix = []
+        
+    def cogitate(self):
+        
+        if self.to_client:
+            self.character.to_client += self.to_client
+            
+        self.to_client = []
             
 
 

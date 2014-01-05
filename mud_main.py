@@ -80,6 +80,7 @@ def process_clients():
         
         if client.active:
             client.character.processor(client.character)
+            client.character.brain.cogitate()
 
             if client.cmd_ready:
                 this_command = client.get_command()
