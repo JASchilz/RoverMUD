@@ -5,7 +5,7 @@
 #------------------------------------------------------------------------------
 
 # from universe import process_clients
-from character import SimpleCharacter, init_character
+from init_player import init_player
 
 
 

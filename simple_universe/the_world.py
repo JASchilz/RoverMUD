@@ -5,7 +5,7 @@
 #------------------------------------------------------------------------------
 
 from thing import SimpleThing
-from mob import SimpleMob
+from character import SimpleCharacter
 from room import SimpleRoom
 from world import SimpleWorld
 
@@ -17,7 +17,7 @@ DEFAULT_LOCATION = [1, 0]
 this_clock = SimpleThing("a bronze clock",
                 "This is a large bronze clock, topped with a statue of an angel.",
                 ["clock"])
-this_stag = SimpleMob("a muscular stag", "This is a large brown stag.", 5,
+this_stag = SimpleCharacter("a muscular stag", "This is a large brown stag.", 5,
                 ["stag"], False)
 
 

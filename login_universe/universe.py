@@ -8,7 +8,7 @@ import os
 import pickle
 import hashlib
 
-from basics import BaseCharacter, BaseAttachment
+from basics import BaseCharacter, BaseAttachment, PlayerBrain
 from log import log
 
 import simple_universe
@@ -59,35 +59,17 @@ class LoginCharacter(BaseCharacter):
     def __init__(self, base_character = False):
     
         self.attachments = []
-        self.brain = PlayerBrain(self)
+        #self.brain = PlayerBrain(self)
+        self.processor = process
 
         if base_character:
-            self.to_client = base_character.to_client
-            self.from_client = base_character.from_client
+            self.brain = base_character.brain
+            self.brain.prompt = ""
+            #self.processor = base_character.processor
 
-            self.client = base_character.client
-            self.processor = base_character.processor
-
-            self.logged_in = base_character.logged_in
-            self.pass_salt = base_character.pass_salt
+            self.pass_salt = base_character.brain.pass_salt
             
-            
-class PlayerBrain(BaseAttachment):
 
-    character = False
-
-    def __init__(self, character):
-        self.character = character
-        
-        self.to_client = []
-        self.action_matrix = []
-        
-    def cogitate(self):
-        
-        if self.to_client:
-            self.character.to_client += self.to_client
-            
-        self.to_client = []
             
 
 
@@ -97,152 +79,156 @@ def process(character):
     '''
 
     if character.login_state == AWAITING_NAME_QUERY:
-        character.to_client.append("Please enter your character name: ")
+        character.brain.to_client.append("Please enter your character name: ")
         character.login_state = AWAITING_NAME
         
     elif character.login_state == AWAITING_NAME:
-        if character.from_client:
+        if character.brain.from_client:
 
-            character.supposed_character_name = clean_name(character.from_client[0])
+            character.supposed_character_name = clean_name(character.brain.from_client[0])
 
-            character.from_client = []
+            character.brain.from_client = []
             if character.supposed_character_name == 'New':
-                character.to_client.append("Creating a new character...")
-                character.to_client.append("Please enter the name of your new character: ")
+                character.brain.to_client.append("Creating a new character...")
+                character.brain.to_client.append("Please enter the name of your new character: ")
                 character.login_state = AWAITING_NEW_CHARACTER_NAME
             else:
                 character.login_state = AWAITING_PASSWORD
-                character.to_client.append("Password: ")
-                character.client().password_mode_on()
+                character.brain.to_client.append("Password: ")
+                character.brain.client.password_mode_on()
             
     elif character.login_state == AWAITING_PASSWORD:
-        if character.from_client:
-            character.supposed_password = character.from_client[0]
-            character.from_client = []
+        if character.brain.from_client:
+            character.supposed_password = character.brain.from_client[0]
+            character.brain.from_client = []
             character.login_state = AWAITING_VALIDATION
-            character.client().password_mode_off()
-            character.to_client.append("\nValidating...")
+            character.brain.client.password_mode_off()
+            character.brain.to_client.append("\nValidating...")
 
     elif character.login_state == AWAITING_VALIDATION:
         result = is_character_of_name(character.supposed_character_name)
 
         if result:
-            supposed_hash = hashlib.md5( result.pass_salt + character.supposed_password ).hexdigest()
+            supposed_hash = hashlib.md5( result.brain.pass_salt + character.supposed_password ).hexdigest()
 
-        if result and supposed_hash == result.password:
+        if result and supposed_hash == result.brain.password:
             
             if result.logged_in:
-                character.to_client.append("Character already logged in to game.")
-                character.to_client.append("Allow some time for your old connection to time out, and try again.")
+                character.brain.to_client.append("Character already logged in to game.")
+                character.brain.to_client.append("Allow some time for your old connection to time out, and try again.")
                 character.login_state = AWAITING_NAME_QUERY
             else:
+            
+                character.brain.password = supposed_hash
+                character.brain.pass_salt = result.brain.pass_salt
 
                 CHARACTER_LIST.remove(result)
                 
-                character.client().character = result
-                result.client = character.client
-                
                 result.logged_in = True
-                result.to_client.append("User name and password validated.")
-                result.to_client.append("Joining game...")
-
-                result = simple_universe.init_character(result)
-
+                
+                character.brain.transplant(result)
+                
+                result.brain.to_client.append("User name and password validated.")
+                result.brain.to_client.append("Joining game...")
+                
+                result = simple_universe.init_player(result)
+                
                 CHARACTER_LIST.append(result)
+                
         else:
             character.supposed_character_name = ''
             character.supposed_password = ''
-            character.to_client.append("User name or password incorrect.")
-            character.to_client.append("Please try again.")
+            character.brain.to_client.append("User name or password incorrect.")
+            character.brain.to_client.append("Please try again.")
             character.login_state = AWAITING_NAME_QUERY
 
 
     elif character.login_state == AWAITING_NEW_CHARACTER_NAME:
-        if character.from_client:
-            character.new_character_name = clean_name(character.from_client[0])
-            character.from_client = []
+        if character.brain.from_client:
+            character.new_character_name = clean_name(character.brain.from_client[0])
+            character.brain.from_client = []
             
             result = is_character_of_name(character.new_character_name)
 
             if not result:
                 character.login_state = AWAITING_NEW_CHARACTER_NAME_CONF
-                character.to_client.append('Confirm new character name "%s" (yes\\no): ' % character.new_character_name)
+                character.brain.to_client.append('Confirm new character name "%s" (yes\\no): ' % character.new_character_name)
             else:
-                character.to_client.append("This character name is already taken.")
-                character.to_client.append("Please enter a different name for your new character: ")
+                character.brain.to_client.append("This character name is already taken.")
+                character.brain.to_client.append("Please enter a different name for your new character: ")
 
     elif character.login_state == AWAITING_NEW_CHARACTER_NAME_CONF:
-        if character.from_client:
-            response = character.from_client[0].lower()
+        if character.brain.from_client:
+            response = character.brain.from_client[0].lower()
             if response[0] == 'y':
-                character.to_client.append("You have accepted this name.")
-                character.to_client.append("Enter a password for this character: ")
-                character.client().password_mode_on()
+                character.brain.to_client.append("You have accepted this name.")
+                character.brain.to_client.append("Enter a password for this character: ")
+                character.brain.client.password_mode_on()
                 character.login_state = AWAITING_NEW_PASSWORD
 
             elif response[0] == 'n':
-                character.to_client.append("You have declined this name.")
-                character.to_client.append("Please enter the name of your new character: ")
+                character.brain.to_client.append("You have declined this name.")
+                character.brain.to_client.append("Please enter the name of your new character: ")
                 character.login_state = AWAITING_NEW_CHARACTER_NAME
 
             else:
-                character.to_client.append("Response unrecognized.")
-                character.to_client.append('Confirm or decline new character name "%s" by typing yes or no: ' % character.new_character_name)
+                character.brain.to_client.append("Response unrecognized.")
+                character.brain.to_client.append('Confirm or decline new character name "%s" by typing yes or no: ' % character.new_character_name)
                 character.login_state = AWAITING_NEW_CHARACTER_NAME_CONF
                 
-            character.from_client = []
+            character.brain.from_client = []
 
     elif character.login_state == AWAITING_NEW_PASSWORD:
-        if character.from_client:
-            character.new_password = character.from_client[0]
-            character.from_client = []
-            character.to_client.append("Reenter password to confirm: ")
+        if character.brain.from_client:
+            character.new_password = character.brain.from_client[0]
+            character.brain.from_client = []
+            character.brain.to_client.append("Reenter password to confirm: ")
             character.login_state = AWAITING_NEW_PASSWORD_CONF
 
     elif character.login_state == AWAITING_NEW_PASSWORD_CONF:
-        if character.from_client:
-            response = character.from_client[0]
+        if character.brain.from_client:
+            response = character.brain.from_client[0]
             if response == character.new_password:
-                character.to_client.append("Password confirmed.")
-                character.client().password_mode_off()
-                character.to_client.append("Please choose your character's sex (M\\F): ")
+                character.brain.to_client.append("Password confirmed.")
+                character.brain.client.password_mode_off()
+                character.brain.to_client.append("Please choose your character's sex (M\\F): ")
                 character.login_state = AWAITING_SEX_SELECTION
 
             else:
-                character.to_client.append("The two passwords you entered did not match.")
-                character.to_client.append("Let's try again...")
-                character.to_client.append("Enter a password for this character: ")
+                character.brain.to_client.append("The two passwords you entered did not match.")
+                character.brain.to_client.append("Let's try again...")
+                character.brain.to_client.append("Enter a password for this character: ")
                 character.login_state = AWAITING_NEW_PASSWORD
                 
-            character.from_client = []
+            character.brain.from_client = []
 
     elif character.login_state == AWAITING_SEX_SELECTION:
-        if character.from_client:
-            response = character.from_client[0].lower()
+        if character.brain.from_client:
+            response = character.brain.from_client[0].lower()
             if response[0] == 'm':
-                character.to_client.append("You have chosen to create a male character.")
+                character.brain.to_client.append("You have chosen to create a male character.")
                 character.login_state = AWAITING_NEW_CHARACTER_FINALIZATION
 
             elif response[0] == 'f':
-                character.to_client.append("You have chosen to create a female character.")
+                character.brain.to_client.append("You have chosen to create a female character.")
                 character.login_state = AWAITING_NEW_CHARACTER_FINALIZATION
 
             else:
-                character.to_client.append("Response unrecognized.")
-                character.to_client.append('Please choose a sex for your character by typing either male or female: ')
+                character.brain.to_client.append("Response unrecognized.")
+                character.brain.to_client.append('Please choose a sex for your character by typing either male or female: ')
                 character.login_state = AWAITING_SEX_SELECTION
                 
-            character.from_client = []
+            character.brain.from_client = []
 
     elif character.login_state == AWAITING_NEW_CHARACTER_FINALIZATION:
         character.name = character.new_character_name
-        character.password = hashlib.md5( character.pass_salt + character.new_password ).hexdigest()
+        character.brain.password = hashlib.md5( character.brain.pass_salt + character.new_password ).hexdigest()
         character.logged_in = True
 
-        character.to_client.append("Character created.")
-        character.to_client.append("Joining game...")
+        character.brain.to_client.append("Character created.")
+        character.brain.to_client.append("Joining game...")
         
-        character = simple_universe.init_character(character)
+        character = simple_universe.init_player(character)
 
         CHARACTER_LIST.append(character)
 
@@ -289,33 +275,33 @@ def init_character(character):
     for line in title_screen:
         title_text = title_text + line
         
-    character.to_client.append(title_text)
+    character.brain.to_client.append(title_text)
 
     # Make the character a LoginCharacter
-    character.client().character = LoginCharacter(character)
-    character.client().character.processor = process
+    character.brain.client.character = LoginCharacter(character)
+    #character.client().brain.processor = process
     
     # Clear the character's input queue
-    character.client().character.from_client = [];
+    #character.client().character.brain.from_client = [];
 
 def backup_data():
     '''
     Backs up all player characters to file, logged in or not.
     '''
     
-    # We have to momentarily remove everyone's client ref in order to
+    # We have to momentarily remove everyone's client in order to
     # pickle the character file.
     clientDict = {}
 
     for character in CHARACTER_LIST:
-        clientDict[character] = character.client
-        character.client = False
+        clientDict[character] = character.brain.client
+        character.brain.client = False
 
     pickle.dump(CHARACTER_LIST, open(character_file_abs_file_path, "wb" ) )
 
     # And then we restore the clients to their characters
     for character in clientDict:
-        character.client = clientDict[character]
+        character.brain.client = clientDict[character]
 
 
 def restore_data():

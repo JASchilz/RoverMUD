@@ -89,7 +89,7 @@ class OOC_Commands(BaseAttachment):
         self.character.brain.to_client.append(output)
 
     def do_quit(self, rest):
-        self.character.client().active = False
+        self.character.brain.client.active = False
 
     def do_health(self, rest):
         self.character.brain.to_client.append("You have " +
@@ -253,23 +253,7 @@ class PlayerEyes(BaseAttachment):
             else:
                 self.character.brain.to_client.append("Your inventory is empty.")
                 
-class PlayerBrain(BaseAttachment):
 
-    character = False
-
-    def __init__(self, character):
-        self.character = character
-        
-        self.to_client = []
-        
-        self.action_matrix = []
-        
-    def cogitate(self):
-        
-        if self.to_client:
-            self.character.to_client += self.to_client
-            
-        self.to_client = []
 
 
 

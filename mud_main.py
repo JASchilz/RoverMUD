@@ -23,7 +23,7 @@ from miniboa import TelnetServer
 
 import simple_universe
 import login_universe
-from basics import BaseCharacter
+from basics import BaseCharacter, PlayerBrain
 from scheduler import schedule_event, do_tick
 
 from log import log
@@ -52,8 +52,8 @@ def on_disconnect(client):
     Handles lost connections.
     """
     log("-- Lost connection to %s" % client.addrport())
-    client.character.logged_in = False
-    client.character.client = False
+    client.brain.logged_in = False
+    client.brain.client = False
     client.character.disconnect()
     client.send("\nDisconnecting\n")
     CLIENT_LIST.remove(client)
@@ -80,24 +80,24 @@ def process_clients():
         
         if client.active:
             client.character.processor(client.character)
-            client.character.brain.cogitate()
+            client.brain.cogitate()
 
             if client.cmd_ready:
                 this_command = client.get_command()
                 if len(this_command) > 0:
-                    client.character.from_client.append(this_command)
+                    client.brain.from_client.append(this_command)
 
-            if client.character.to_client:
-                for msg in client.character.to_client:
+            if client.brain.to_client:
+                for msg in client.brain.to_client:
                     if len(msg) <= 75 or "\n" in msg:
                         client.send("\n" + msg)
                     else:
                         client.send("\n" + textwrap.fill(msg, 75))
 
-                if len(client.character.prompt) > 0:
-                    client.send(client.character.prompt)
+                if len(client.brain.prompt) > 0:
+                    client.send(client.brain.prompt)
 
-                client.character.to_client = []
+                client.brain.to_client = []
 
 
 def broadcast(msg):

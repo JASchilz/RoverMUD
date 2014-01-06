@@ -12,12 +12,15 @@ def process(character, thisInput = False):
     '''
 
     if not thisInput:
-        if character.from_client:
-            thisInput = character.from_client[0]
-            character.from_client = []
+        if character.brain.from_client:
+            thisInput = character.brain.from_client[0]
+            character.brain.from_client = []
 
     if thisInput.__class__.__name__ == "SimpleStim":
-        character.process_stim(thisInput)
+        if hasattr(character, 'brain') and hasattr(character.brain, 'client'):
+            character.pc_process_stim(thisInput)
+        else:
+            character.process_stim(thisInput)
             
 
     elif thisInput:
@@ -34,4 +37,4 @@ def process(character, thisInput = False):
                     action[1](rest)
                 
         if not action_found:
-            character.to_client.append("I don't think you can actually do that...")
+            character.brain.to_client.append("I don't think you can actually do that...")

@@ -8,7 +8,6 @@ from basics import BaseThing
 
 class SimpleThing(BaseThing):
 
-    name = ""
     description = ""
     keywords = []
 

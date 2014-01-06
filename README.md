@@ -3,6 +3,8 @@ RoverMUD
 
 A modular, object oriented, python based MUD.
 
+Communications provided by Jim Storch's miniboa. No dependencies on external libraries.
+
 Notable Features
 ----------------
 
@@ -57,6 +59,8 @@ Status
 
 Though the basic functions of a MUD are functional, I would consider the code 'unstable' until the items in the 'immediate to-do' have been completed. Any fork made at this point will not be compatible architecturally with the first release version.
 
+The code is currently messy following a merge of character and mob in simple_universe.
+
 ### What Works
 
 * Scheduling
@@ -68,11 +72,16 @@ Though the basic functions of a MUD are functional, I would consider the code 'u
 * Hitting and killing things
 * All commands in 'help'
 
-### Immediate To-Do
+### Notable To-Do's Done
 
 * Merge character and mob
+
+### Immediate To-Do
+
+* Bring process and process_stim under brain
 * Bring the attachment system, especially regarding perception, to spec
 * Move from pickle to sqlite for storage
+* Fix container/containment
 
 ### Later To-Do
 

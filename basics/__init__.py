@@ -7,6 +7,7 @@
 from basics import BaseThing
 from basics import BaseCharacter
 from basics import BaseAttachment
+from basics import PlayerBrain
 
 
 
