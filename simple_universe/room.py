@@ -4,14 +4,15 @@
 #   Licensed under Apache v2
 #------------------------------------------------------------------------------
 
+
 class SimpleRoom():
 
     ID = [-1, -1]
     exits = []
     description = ""
 
-    def __init__(self, ID = [-1, -1], exits = False, description = False,
-                 contents = False):
+    def __init__(self, ID=[-1, -1], exits=False, description=False,
+                 contents=False):
 
         self.ID = ID
         self.exits = exits

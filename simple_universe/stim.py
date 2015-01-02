@@ -10,6 +10,7 @@ STIM_VISUAL = 1
 STIM_AUDIO = 2
 STIM_DAMAGE = 3
 
+
 class SimpleStim():
 
     stim_type = False
@@ -34,34 +35,36 @@ class SimpleStim():
     def emit(self):
 
         # Build the list of exceptions
-        theseExceptions = []
+        these_exceptions = []
         for exception in self.target_exceptions:
             if exception.__class__.__name__ == "SimpleRoom":
                 for content in exception.contents:
-                    theseExceptions.append(content)
+                    these_exceptions.append(content)
             elif exception.__class__.__name__ == "SimpleWorld":
-                for room in target.rooms:
-                    for content in room.contents:
-                        theseExceptions.append(content)
+                for target in self.targets:  # Guess fix
+                    for room in target.rooms:
+                        for content in room.contents:
+                            these_exceptions.append(content)
             else:
-                theseExceptions.append(exception)
+                these_exceptions.append(exception)
 
         for target in self.targets:
             if target.__class__.__name__ == "SimpleRoom":
                 for content in target.contents:
-                    if not content in theseExceptions:
+                    if not content in these_exceptions:
                         process(content, self)
 
-            elif target.__class__.__name__ == "list": #sloppy
+            elif target.__class__.__name__ == "list":  # sloppy
                 for room in target:
                     for content in room.contents:
-                        if not content in theseExceptions:
+                        if content not in these_exceptions:
                             process(content, self)
-##            elif target.__class__.__name__ == "SimpleWorld"
-##                for room in target.rooms:
-##                    for content in room.contents:
-##                        if not content in theseExceptions:
-##                            process(content, self)
+
+            # elif target.__class__.__name__ == "SimpleWorld"
+            #     for room in target.rooms:
+            #         for content in room.contents:
+            #             if not content in these_exceptions:
+            #                 process(content, self)
 
             else:
                 # If we get here, it's because someone specifically listed

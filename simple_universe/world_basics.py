@@ -7,6 +7,7 @@
 from thing import SimpleThing
 from room import SimpleRoom
 
+
 zone_0 = []
 zone_0.append(SimpleRoom([0, 0], [],
                 "You have been destroyed. Prepare yourself for reclamation."))
@@ -20,4 +21,4 @@ LIMBO = zone_0[1]
 
 
 A_CORPSE = SimpleThing("the corpse of ", "This is the corpse of ",
-                ["corpse"], False)
+                       ["corpse"], False)

@@ -9,7 +9,7 @@
 #------------------------------------------------------------------------------
 
 import random
-import weakref
+
 
 class BaseThing():
 
@@ -47,11 +47,10 @@ class BaseThing():
 
 class BaseCharacter(BaseThing):
 
-    #password = ''
-    #pass_salt = str(random.getrandbits(128))
+    # password = ''
+    # pass_salt = str(random.getrandbits(128))
 
-
-    def __init__(self, client = False):
+    def __init__(self, client=False):
     
         if client:
             self.brain = PlayerBrain(self, client)
@@ -61,6 +60,7 @@ class BaseCharacter(BaseThing):
     def disconnect(self):
     
         self.logged_in = False
+
 
 class BaseAttachment():
 
@@ -72,16 +72,16 @@ class BaseAttachment():
         del result['action_matrix']
         return result
 
-    def __setstate__(self, thisDict):
-        self.__init__(thisDict['character'])
+    def __setstate__(self, this_dict):
+        self.__init__(this_dict['character'])
 
-        thisDict['action_matrix'] = self.action_matrix
-        self.__dict__ = thisDict
+        this_dict['action_matrix'] = self.action_matrix
+        self.__dict__ = this_dict
         
         
 class PlayerBrain(BaseAttachment):
 
-    def __init__(self, character, client = False):
+    def __init__(self, character, client=False):
 
         self.password = ''
         self.pass_salt = str(random.getrandbits(128))
@@ -107,13 +107,10 @@ class PlayerBrain(BaseAttachment):
         self.character = character
         character.brain = self
         
-        
     def cogitate(self):
         pass
         
-        '''if self.to_client:
-            self.character.to_client += self.to_client
-            
-        self.to_client = []'''
-
-    
+        # if self.to_client:
+        #     self.character.to_client += self.to_client
+        #     
+        # self.to_client = []

@@ -6,7 +6,8 @@
 
 from datetime import datetime
 
-TIME_FORMAT = '%Y%m%d:%H%M%S: ' # Time format for the log.
+TIME_FORMAT = '%Y%m%d:%H%M%S: '  # Time format for the log.
+
 
 def log(msg):
     """
@@ -16,7 +17,7 @@ def log(msg):
     if len(msg) > 0:
         msg = msg[0] + msg[1:len(msg)].replace("\n", "\n    ")
 
-        with open("log.txt", "a") as myfile:
-            myfile.write(datetime.now().strftime(TIME_FORMAT) + msg + "\n")
+        with open("log.txt", "a") as my_file:
+            my_file.write(datetime.now().strftime(TIME_FORMAT) + msg + "\n")
 
         print msg

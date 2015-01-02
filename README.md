@@ -32,11 +32,6 @@ Anyone interested in helping the codebase move to sqlite may contact me. Due to 
 
 Once I have completed some refactoring the project will be able to more flexibly integrate contributions.
 
-More Information
-----------------
-
-For more information, read notes.md.
-
 Requires
 --------
 

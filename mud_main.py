@@ -29,7 +29,7 @@ from scheduler import schedule_event, do_tick
 from log import log
 
 
-IDLE_TIMEOUT = 300 # How many seconds to allow clients to idle.
+IDLE_TIMEOUT = 300  # How many seconds to allow clients to idle.
 
 
 CLIENT_LIST = []
@@ -63,7 +63,7 @@ def kick_idle():
     """
     Looks for idle clients and disconnects them by setting active to False.
     """
-    ## Who hasn't been typing?
+    # Who hasn't been typing?
     for client in CLIENT_LIST:
         if client.idle() > IDLE_TIMEOUT:
             log('-- Kicking idle lobby client from %s' % client.addrport())
@@ -117,9 +117,9 @@ if __name__ == '__main__':
     Do the MUD.
     """
 
-    ## Create a telnet server with a port, address,
-    ## a function to call with new connections
-    ## and one to call with lost connections.
+    # Create a telnet server with a port, address,
+    # a function to call with new connections
+    # and one to call with lost connections.
 
     telnet_server = TelnetServer(
         port=7777,
@@ -137,27 +137,27 @@ if __name__ == '__main__':
     # A subtick occurs every .05 seconds. Every subtick the server
     # takes and processes client input. Every 20 subticks, or one second,
     # is a tick, in which the game executes its own logic.
-    tickCount = 0
-    subtickCount = 0
+    tick_count = 0
+    subtick_count = 0
 
-    ## Server Loop
+    # Server Loop
 
     try:
         while SERVER_RUN:
             sleep(.05)
-            telnet_server.poll()    ## Send, Recv, and look for new connections
-            kick_idle()             ## Check for idle clients
-            process_clients()       ## Check for client input
+            telnet_server.poll()    # Send, Recv, and look for new connections
+            kick_idle()             # Check for idle clients
+            process_clients()       # Check for client input
 
-            subtickCount += 1
+            subtick_count += 1
 
-            if subtickCount == 20:
-                subtickCount = 0
-                tickCount += 1
+            if subtick_count == 20:
+                subtick_count = 0
+                tick_count += 1
                 do_tick()
 
             # Every 60 seconds, make a character backup.
-            if (tickCount == 60 or tickCount % 360 == 0) and subtickCount == 0 and len(CLIENT_LIST) > 0:
+            if (tick_count == 60 or tick_count % 360 == 0) and subtick_count == 0 and len(CLIENT_LIST) > 0:
                         
                 login_universe.backup_data()
                 log(">> Backing up character data.")

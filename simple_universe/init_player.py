@@ -2,20 +2,21 @@ from character import SimpleCharacter, CHARACTER_LIST
 from the_world import DEFAULT_LOCATION, THIS_WORLD
 from simple_player_attachments import *
 
+
 def init_player(character):
-    '''
+    """
     Initialize a player character into the simple_universe.
-    '''
+    """
 
     # Make the character a simple character, if they are not already.
-    if not character.__class__.__name__ == "SimpleCharacter": #or True:
+    if not character.__class__.__name__ == "SimpleCharacter": # or True:
     
         old_character = character
-        character = SimpleCharacter.fromSimpleCharacter(old_character)
+        character = SimpleCharacter.from_simple_character(old_character)
         old_character.brain.transplant(character)
         
         # Give them the character attachments
-        character.attachments.append(OOC_Commands(character))
+        character.attachments.append(OOCComands(character))
         character.attachments.append((PlayerLegs(character)))
         character.attachments.append(PlayerEyes(character))
         character.attachments.append(PlayerMouth(character))
@@ -27,7 +28,6 @@ def init_player(character):
         character.processor = process
         
     character.brain.prompt = "\n> "
-        
 
     # Put them into the character list.
     CHARACTER_LIST.append(character)

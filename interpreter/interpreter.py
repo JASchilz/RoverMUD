@@ -6,70 +6,71 @@
 
 articles = [" a ", " the "]
 
+
 def verb(command):
     # A function to isolate the verb in a command.
 
-    thisVerb = ""
-    theRest = ""
+    this_verb = ""
+    the_rest = ""
 
-    firstSpace = command.find(" ")
+    first_space = command.find(" ")
 
-    # If thisInput contains a space, the verb is everything before the
+    # If this_input contains a space, the verb is everything before the
     # first space.
-    if firstSpace > 0:
-        thisVerb = command[0:firstSpace]
-        theRest = command[firstSpace + 1:len(command)]
+    if first_space > 0:
+        this_verb = command[0:first_space]
+        the_rest = command[first_space + 1:len(command)]
     # If it doesn't contain a space, the whole thing is the verb.
     else:
-        thisVerb = command
+        this_verb = command
 
     # We handle simple verb aliases at this level...
     if command[0] == "'":
-        thisVerb = "say"
-        theRest = command[1:len(command)]
+        this_verb = "say"
+        the_rest = command[1:len(command)]
 
     if command == "north" or command == "n":
-        thisVerb = "go"
-        theRest = "north"
+        this_verb = "go"
+        the_rest = "north"
     elif command == "south" or command == "s":
-        thisVerb = "go"
-        theRest = "south"
+        this_verb = "go"
+        the_rest = "south"
     elif command == "east" or command == "e":
-        thisVerb = "go"
-        theRest = "east"
+        this_verb = "go"
+        the_rest = "east"
     elif command == "west" or command == "w":
-        thisVerb = "go"
-        theRest = "west"
+        this_verb = "go"
+        the_rest = "west"
     elif command == "up" or command == "u":
-        thisVerb = "go"
-        theRest = "up"
+        this_verb = "go"
+        the_rest = "up"
     elif command == "down" or command == "d":
-        thisVerb = "go"
-        theRest = "down"
+        this_verb = "go"
+        the_rest = "down"
 
-    if thisVerb == "l":
-        thisVerb = "look"
-    elif thisVerb == "i":
-        thisVerb = "inv"
-    elif thisVerb == "h":
-        thisVerb = "health"
+    if this_verb == "l":
+        this_verb = "look"
+    elif this_verb == "i":
+        this_verb = "inv"
+    elif this_verb == "h":
+        this_verb = "health"
+
+    return this_verb, the_rest
 
 
-    return thisVerb, theRest
+def interpret(the_verb, the_rest, transitivity=1):
 
-def interpret(theVerb, theRest, transitivity = 1):
-
-    theRest = " " + theRest.lower() + " "
+    the_rest = " " + the_rest.lower() + " "
 
     for article in articles:
-        theRest = theRest.replace(article, '')
+        the_rest = the_rest.replace(article, '')
 
     if transitivity == 1:
-        theRest = theRest.strip().split()
+        the_rest = the_rest.strip().split()
 
-        if len(theRest) > 0:
+        if len(the_rest) > 0:
             # This might not be stable.
-            return [theRest.pop(), theRest]
+            return [the_rest.pop(), the_rest]
 
         else:
             return False

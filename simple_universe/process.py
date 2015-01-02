@@ -6,25 +6,25 @@
 
 import interpreter as interpret
 
-def process(character, thisInput = False):
-    '''
-    Process player commands and stimulation.
-    '''
 
-    if not thisInput:
+def process(character, this_input=False):
+    """
+    Process player commands and stimulation.
+    """
+
+    if not this_input:
         if character.brain.from_client:
-            thisInput = character.brain.from_client[0]
+            this_input = character.brain.from_client[0]
             character.brain.from_client = []
 
-    if thisInput.__class__.__name__ == "SimpleStim":
+    if this_input.__class__.__name__ == "SimpleStim":
         if hasattr(character, 'brain') and hasattr(character.brain, 'client'):
-            character.pc_process_stim(thisInput)
+            character.pc_process_stim(this_input)
         else:
-            character.process_stim(thisInput)
-            
+            character.process_stim(this_input)
 
-    elif thisInput:
-        [verb, rest] = interpret.verb(thisInput)
+    elif this_input:
+        [verb, rest] = interpret.verb(this_input)
         
         action_found = False
 

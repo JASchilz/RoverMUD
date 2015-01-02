@@ -12,6 +12,7 @@ from stim import SimpleStim, STIM_VISUAL, STIM_AUDIO, STIM_DAMAGE
 
 from process import process
 
+
 class PlayerLegs(BaseAttachment):
 
     character = False
@@ -38,8 +39,7 @@ class PlayerLegs(BaseAttachment):
                 if rest == an_exit[0]:
                     exit_found = True
 
-                    this_message = self.character.name + " leaves to the " + \
-                        rest + "."
+                    this_message = self.character.name + " leaves to the " + rest + "."
                     SimpleStim(STIM_VISUAL, this_message, False,
                                    [self.character.room()], [self.character])
 
@@ -49,22 +49,20 @@ class PlayerLegs(BaseAttachment):
                     process(self.character, "look")
 
                     # Improve this, if you care to, with a direction of entry.
-                    this_message = (self.character.name +
-                                   " has entered the room.")
+                    this_message = (self.character.name + " has entered the room.")
                     SimpleStim(STIM_VISUAL, this_message, False,
-                                   [self.character.room()], [self.character])
+                               [self.character.room()], [self.character])
                     
                     break
 
             if not exit_found:
-                self.character.brain.to_client.append(
-                    "You can't got that way from here.")
+                self.character.brain.to_client.append("You can't got that way from here.")
 
         else:
-            self.character.brain.to_client.append(
-                "I don't understand that location or direction.")
+            self.character.brain.to_client.append("I don't understand that location or direction.")
 
-class OOC_Commands(BaseAttachment):
+
+class OOCComands(BaseAttachment):
 
     character = False
 
@@ -92,8 +90,8 @@ class OOC_Commands(BaseAttachment):
         self.character.brain.client.active = False
 
     def do_health(self, rest):
-        self.character.brain.to_client.append("You have " +
-                        str(self.character.current_hp) + " hit points.")
+        self.character.brain.to_client.append("You have " + str(self.character.current_hp) + " hit points.")
+
 
 class PlayerArms(BaseAttachment):
 
@@ -116,26 +114,27 @@ class PlayerArms(BaseAttachment):
         if not rest:
             self.character.brain.to_client.append("OK, but take what?")
         else:
-            thisParse = interpret(True, rest)
+            this_parse = interpret(True, rest)
 
-            theObject = self.character.find(thisParse)
+            the_object = self.character.find(this_parse)
 
-            if theObject:
+            if the_object:
 
-                if theObject == self.character:
+                if the_object == self.character:
                     self.character.brain.to_client.append("Let's not explore that \
                         little conundrum, eh?")
-                elif theObject.takable == True:
-                    theObject.move_to(self.character, self.character.inventory)
+
+                elif the_object.takable is True:
+                    the_object.move_to(self.character, self.character.inventory)
                     self.character.brain.to_client.append("You take " +
-                                    theObject.short_description + ".")
+                                    the_object.short_description + ".")
                     
                     this_message = (self.character.name + " picks up " +
-                                    theObject.short_description + ".")
+                                    the_object.short_description + ".")
                     SimpleStim(STIM_VISUAL, this_message, False,
                                    [self.character.room()], [self.character])
                     
-                elif theObject.takable == False:
+                elif the_object.takable is False:
                     self.character.brain.to_client.append("You're unable to take \
                         that.")
             else:
@@ -147,42 +146,41 @@ class PlayerArms(BaseAttachment):
         if not rest:
             self.character.brain.to_client.append("OK, but drop what?")
         else:
-            thisParse = interpret(True, rest)
+            this_parse = interpret(True, rest)
 
-            theObject = self.character.find(thisParse, self.character.inventory)
+            the_object = self.character.find(this_parse, self.character.inventory)
 
-            if theObject:
-                theObject.move_to(self.character.room(), self.character.room().contents)
-                self.character.brain.to_client.append("You drop " + theObject.short_description + ".")
+            if the_object:
+                the_object.move_to(self.character.room(), self.character.room().contents)
+                self.character.brain.to_client.append("You drop " + the_object.short_description + ".")
                 
-                this_message = self.character.name + " sets down " + theObject.short_description + "."
+                this_message = self.character.name + " sets down " + the_object.short_description + "."
                 SimpleStim(STIM_VISUAL, this_message, False, [self.character.room()], [self.character])
             else:
                 self.character.brain.to_client.append("I can't find the thing you'd like to drop.")
-                
 
     def do_hit(self, rest):
 
         if not rest:
             self.character.brain.to_client.append("OK, but hit what?")
         else:
-            thisParse = interpret(True, rest)
+            this_parse = interpret(True, rest)
 
-            theObject = self.character.find(thisParse, self.character.room().contents)
+            the_object = self.character.find(this_parse, self.character.room().contents)
 
-            if theObject:
-                if theObject.__class__.__name__ == "SimpleCharacter" or theObject.__class__.__name__ == "SimpleMob":
-                    theObject.move_to(self.character.room(), self.character.room().contents)
-                    self.character.brain.to_client.append("You hit " + theObject.short_description + ".")
+            if the_object:
+                if the_object.__class__.__name__ == "SimpleCharacter" or the_object.__class__.__name__ == "SimpleMob":
+                    the_object.move_to(self.character.room(), self.character.room().contents)
+                    self.character.brain.to_client.append("You hit " + the_object.short_description + ".")
 
-                    this_message = self.character.name + " smacks " + theObject.short_description + "."
-                    SimpleStim(STIM_VISUAL, this_message, False, [self.character.room()], [self.character, theObject])
+                    this_message = self.character.name + " smacks " + the_object.short_description + "."
+                    SimpleStim(STIM_VISUAL, this_message, False, [self.character.room()], [self.character, the_object])
 
                     this_message = self.character.name + " hits you."
-                    SimpleStim(STIM_DAMAGE, this_message, 1, [theObject], [])
+                    SimpleStim(STIM_DAMAGE, this_message, 1, [the_object], [])
                 else:
-                    self.character.brain.to_client.append("You hit " + theObject.short_description + ".")
-                    this_message = self.character.name + " smacks " + theObject.short_description + "."
+                    self.character.brain.to_client.append("You hit " + the_object.short_description + ".")
+                    this_message = self.character.name + " smacks " + the_object.short_description + "."
                     SimpleStim(STIM_VISUAL, this_message, False, [self.character.room()], [self.character])
             else:
                 self.character.brain.to_client.append("I can't find the thing you'd like to hit.")
@@ -196,7 +194,8 @@ class PlayerEyes(BaseAttachment):
         self.character = character
 
         self.action_matrix = [
-            ["look", self.do_look, "Look at your surroundings, or look at something.\n\tExamples: 'look', 'look at dog', 'look dog'. Aliases: 'l'"],
+            ["look", self.do_look, "Look at your surroundings, or look at something.\n\tExamples: 'look', "
+                                   "'look at dog', 'look dog'. Aliases: 'l'"],
             ["inv", self.do_inventory, "View your inventory. Aliases: 'i'"]
             ]
 
@@ -226,18 +225,16 @@ class PlayerEyes(BaseAttachment):
                 
             self.character.brain.to_client.append(exits_description)
         else:
-            thisParse = interpret(True, rest)
+            this_parse = interpret(True, rest)
 
-            theObject = self.character.find(thisParse)
+            the_object = self.character.find(this_parse)
 
-            if theObject:
-                self.character.brain.to_client.append(theObject.short_description)
+            if the_object:
+                self.character.brain.to_client.append(the_object.short_description)
 
             else:
                 self.character.brain.to_client.append("I can't find the thing you'd \
                         like to look at.")
-
-            
 
     def do_inventory(self, rest):
 

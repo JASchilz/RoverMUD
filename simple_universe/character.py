@@ -13,12 +13,11 @@ from basics import BaseAttachment
 from thing import SimpleThing
 from world_basics import THE_TRASH, LIMBO, A_CORPSE
 from stim import SimpleStim, STIM_DAMAGE, STIM_VISUAL, STIM_AUDIO
-from simple_player_attachments import *
-
 
 # Here, CHARACTER_LIST is the transient list of characters that
 # are actually in the universe.
 CHARACTER_LIST = []
+
 
 class SimpleCharacter(SimpleThing):
     
@@ -50,7 +49,7 @@ class SimpleCharacter(SimpleThing):
         schedule_event(0, lambda: self.brain.cogitate())
        
     @classmethod
-    def fromSimpleCharacter(cls, simple_character):
+    def from_simple_character(cls, simple_character):
     
         new_character = cls(simple_character.name,
                             simple_character.name,
@@ -66,9 +65,9 @@ class SimpleCharacter(SimpleThing):
         
 
     def make_corpse(self):
-        '''
+        """
         Make a corpse of self.
-        '''
+        """
 
         new_corpse = copy(A_CORPSE)
         new_corpse.name += self.name
@@ -79,9 +78,9 @@ class SimpleCharacter(SimpleThing):
         return new_corpse
 
     def die(self):
-        '''
+        """
         Dying.
-        '''
+        """
     
         new_corpse = self.make_corpse()
         new_corpse.move_to(self.room(), self.room().contents)
@@ -90,9 +89,9 @@ class SimpleCharacter(SimpleThing):
                     self.where_goes_when_dies.contents)
 
     def move_in_zone(self):
-        '''
+        """
         Move randomly within the zone.
-        '''
+        """
 
         exit_list = []
         
@@ -113,8 +112,7 @@ class SimpleCharacter(SimpleThing):
 
             this_message = (self.name + " enters.").capitalize()
             SimpleStim(STIM_VISUAL, this_message, False,
-                [this_destination], [self])
-
+                       [this_destination], [self])
 
     def process_stim(self, stim):
 
@@ -129,8 +127,7 @@ class SimpleCharacter(SimpleThing):
 
         if stim.stim_type == STIM_DAMAGE:
             self.current_hp -= stim.stim_content
-            self.brain.to_client.append(stim.stim_string + " You lose " +
-                                  str(stim.stim_content) + " hit point.")
+            self.brain.to_client.append(stim.stim_string + " You lose " + str(stim.stim_content) + " hit point.")
 
             if self.current_hp <= 0 and self.alive:
                 self.brain.to_client.append("That killed you.")
@@ -139,16 +136,16 @@ class SimpleCharacter(SimpleThing):
         else:
             self.brain.to_client.append(stim.stim_string)
                 
-    def find(self, subParse, theList = False):
+    def find(self, sub_parse, the_list=False):
             
-        if subParse:
+        if sub_parse:
 
-            if not theList:
-                theList = self.room().contents
+            if not the_list:
+                the_list = self.room().contents
 
-            for content in theList:
+            for content in the_list:
                 for keyword in content.keywords:
-                    if keyword == subParse[0]:
+                    if keyword == sub_parse[0]:
                         return content
 
         return False

@@ -6,6 +6,7 @@
 
 from basics import BaseThing
 
+
 class SimpleThing(BaseThing):
 
     description = ""

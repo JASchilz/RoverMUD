@@ -4,11 +4,12 @@
 #   Licensed under Apache v2
 #------------------------------------------------------------------------------
 
+
 class SimpleWorld():
 
     zones = []
 
-    def __init__(self, zones = False):
+    def __init__(self, zones=False):
 
         self.zones = zones
         

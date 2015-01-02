@@ -14,7 +14,7 @@ from log import log
 import simple_universe
 
 
-# CHARACTER_LIST is the persistant list of characters which can
+# CHARACTER_LIST is the persistent list of characters which can
 # log in to the MUD.
 CHARACTER_LIST = []
 
@@ -47,36 +47,35 @@ AWAITING_NEW_PASSWORD_CONF = 13
 AWAITING_SEX_SELECTION = 14
 AWAITING_NEW_CHARACTER_FINALIZATION = 15
 
+
 class LoginCharacter(BaseCharacter):
-    '''
+    """
     A character in the login universe.
-    '''
+    """
 
     # On initialization, we are awaiting the client's response
     # to the game's name query.
     login_state = AWAITING_NAME_QUERY
 
-    def __init__(self, base_character = False):
+    def __init__(self, base_character=None):
+        # super(LoginCharacter, self).__init__()
     
         self.attachments = []
-        #self.brain = PlayerBrain(self)
+        # self.brain = PlayerBrain(self)
         self.processor = process
 
-        if base_character:
+        if base_character is not None:
             self.brain = base_character.brain
             self.brain.prompt = ""
-            #self.processor = base_character.processor
+            # self.processor = base_character.processor
 
             self.pass_salt = base_character.brain.pass_salt
             
 
-            
-
-
 def process(character):
-    '''
+    """
     Process the input and output of the LoginCharacter.
-    '''
+    """
 
     if character.login_state == AWAITING_NAME_QUERY:
         character.brain.to_client.append("Please enter your character name: ")
@@ -109,7 +108,7 @@ def process(character):
         result = is_character_of_name(character.supposed_character_name)
 
         if result:
-            supposed_hash = hashlib.md5( result.brain.pass_salt + character.supposed_password ).hexdigest()
+            supposed_hash = hashlib.md5(result.brain.pass_salt + character.supposed_password ).hexdigest()
 
         if result and supposed_hash == result.brain.password:
             
@@ -141,7 +140,6 @@ def process(character):
             character.brain.to_client.append("User name or password incorrect.")
             character.brain.to_client.append("Please try again.")
             character.login_state = AWAITING_NAME_QUERY
-
 
     elif character.login_state == AWAITING_NEW_CHARACTER_NAME:
         if character.brain.from_client:
@@ -236,19 +234,20 @@ def process(character):
 
 
 def clean_name(name):
-    '''
+    """
     Cleans a proposed character name.
-    '''
+    """
 
     new_name = ''.join(ch for ch in name if ch.isalpha())
     new_name = new_name.title()
 
     return new_name
 
+
 def is_character_of_name(name):
-    '''
+    """
     Checks whether there is a character of the given name.
-    '''
+    """
 
     for character in CHARACTER_LIST:
         if character.name == name:
@@ -258,9 +257,9 @@ def is_character_of_name(name):
 
                         
 def init_character(character):
-    '''
+    """
     Initialize characters into the login_universe.
-    '''
+    """
 
     # Present the title screen
     try:
@@ -273,46 +272,47 @@ def init_character(character):
     title_text = ''
 
     for line in title_screen:
-        title_text = title_text + line
+        title_text += line
         
     character.brain.to_client.append(title_text)
 
     # Make the character a LoginCharacter
     character.brain.client.character = LoginCharacter(character)
-    #character.client().brain.processor = process
+    # character.client().brain.processor = process
     
     # Clear the character's input queue
-    #character.client().character.brain.from_client = [];
+    # character.client().character.brain.from_client = [];
+
 
 def backup_data():
-    '''
+    """
     Backs up all player characters to file, logged in or not.
-    '''
+    """
     
     # We have to momentarily remove everyone's client in order to
     # pickle the character file.
-    clientDict = {}
+    client_dict = {}
 
     for character in CHARACTER_LIST:
-        clientDict[character] = character.brain.client
+        client_dict[character] = character.brain.client
         character.brain.client = False
 
-    pickle.dump(CHARACTER_LIST, open(character_file_abs_file_path, "wb" ) )
+    pickle.dump(CHARACTER_LIST, open(character_file_abs_file_path, "wb"))
 
     # And then we restore the clients to their characters
-    for character in clientDict:
-        character.brain.client = clientDict[character]
+    for character in client_dict:
+        character.brain.client = client_dict[character]
 
 
 def restore_data():
-    '''
+    """
     Restores data on server boot
-    '''
+    """
 
     global CHARACTER_LIST
 
     try:
-        CHARACTER_LIST = pickle.load(open(character_file_abs_file_path, "rb" ))
+        CHARACTER_LIST = pickle.load(open(character_file_abs_file_path, "rb"))
     except IOError as e:
         print 'Error retrieving CHARACTER_LIST'
 
@@ -320,9 +320,7 @@ def restore_data():
         character.logged_in = False
         character.to_client = []
 
+
 def char_list():
 
     return CHARACTER_LIST
-
-
-        
