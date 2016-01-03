@@ -25,13 +25,6 @@ Goals
 
 This project will produce a well documented and architectured MUD that demonstrates the capability and methodology of the codebase. This project will not produce a fully-featured, production MUD. I would happily connect developers who are interested in working together on such a project, or help manage pull requests for such a project.
 
-Contributing
-------------
-
-Anyone interested in helping the codebase move to sqlite may contact me. Due to the modularity of universes, I'm placing some unique requirements on the database system.
-
-Once I have completed some refactoring the project will be able to more flexibly integrate contributions.
-
 Requires
 --------
 
@@ -73,6 +66,7 @@ The code is currently messy following a merge of character and mob in simple_uni
 
 ### Immediate To-Do
 
+* Refactor persistance to [SQLAlchemy](http://www.sqlalchemy.org/) to [peewee](https://github.com/coleifer/peewee)
 * Bring process and process_stim under brain
 * Bring the attachment system, especially regarding perception, to spec
 * Move from pickle to sqlite for storage
@@ -85,6 +79,14 @@ The code is currently messy following a merge of character and mob in simple_uni
 * Wearing and wielding
 * A larger world
 * NPC AI examples
+
+
+Contributing
+------------
+
+Anyone interested in helping the codebase move to an ORM may contact me. I believe it would be best to hold off on adding new features until that move has been completed.
+
+With that in mind, feel free to open pull requests or issues. [GitHub](https://github.com/JASchilz/RoverMUD/) is the canonical location of this project.
 
 
 License
