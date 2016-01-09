@@ -66,10 +66,9 @@ The code is currently messy following a merge of character and mob in simple_uni
 
 ### Immediate To-Do
 
-* Refactor persistance to [SQLAlchemy](http://www.sqlalchemy.org/) to [peewee](https://github.com/coleifer/peewee)
+* Refactor persistance to [SQLAlchemy](http://www.sqlalchemy.org/) or [peewee](https://github.com/coleifer/peewee)
 * Bring process and process_stim under brain
 * Bring the attachment system, especially regarding perception, to spec
-* Move from pickle to sqlite for storage
 * Fix container/containment
 
 ### Later To-Do
