@@ -85,7 +85,13 @@ Contributing
 
 Anyone interested in helping the codebase move to an ORM may contact me. I believe it would be best to hold off on adding new features until that move has been completed.
 
-With that in mind, feel free to open pull requests or issues. [GitHub](https://github.com/JASchilz/RoverMUD/) is the canonical location of this project.
+With that in mind, feel free to open pull requests or issues. [GitHub](https://github.com/JASchilz/RoverMUD/) is the canonical location of this project. Here's the general sequence of events for code contribution:
+
+1. Open an issue in the [issue tracker](https://github.com/JASchilz/RoverMUD/issues/).
+2. In any order:
+  * Submit a pull request with a **failing** test that demonstrates the issue/feature.
+  * Get acknowledgement/concurrence.
+3. Revise your pull request to pass the test in (2). Include documentation, if appropriate.
 
 
 License
