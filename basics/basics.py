@@ -109,8 +109,4 @@ class PlayerBrain(BaseAttachment):
         
     def cogitate(self):
         pass
-        
-        # if self.to_client:
-        #     self.character.to_client += self.to_client
-        #     
-        # self.to_client = []
+
