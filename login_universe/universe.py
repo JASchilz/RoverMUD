@@ -108,7 +108,7 @@ def process(character):
         result = is_character_of_name(character.supposed_character_name)
 
         if result:
-            supposed_hash = hashlib.md5(result.brain.pass_salt + character.supposed_password ).hexdigest()
+            supposed_hash = hashlib.md5((result.brain.pass_salt + character.supposed_password).encode()).hexdigest()
 
         if result and supposed_hash == result.brain.password:
             
@@ -220,7 +220,7 @@ def process(character):
 
     elif character.login_state == AWAITING_NEW_CHARACTER_FINALIZATION:
         character.name = character.new_character_name
-        character.brain.password = hashlib.md5( character.brain.pass_salt + character.new_password ).hexdigest()
+        character.brain.password = hashlib.md5((character.brain.pass_salt + character.new_password).encode()).hexdigest()
         character.logged_in = True
 
         character.brain.to_client.append("Character created.")
@@ -314,7 +314,7 @@ def restore_data():
     try:
         CHARACTER_LIST = pickle.load(open(character_file_abs_file_path, "rb"))
     except IOError as e:
-        print 'Error retrieving CHARACTER_LIST'
+        print('Error retrieving CHARACTER_LIST')
 
     for character in CHARACTER_LIST:
         character.logged_in = False

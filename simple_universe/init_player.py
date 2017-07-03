@@ -1,6 +1,6 @@
-from character import SimpleCharacter, CHARACTER_LIST
-from the_world import DEFAULT_LOCATION, THIS_WORLD
-from simple_player_attachments import *
+from .character import SimpleCharacter, CHARACTER_LIST
+from .the_world import DEFAULT_LOCATION, THIS_WORLD
+from .simple_player_attachments import *
 
 
 def init_player(character):

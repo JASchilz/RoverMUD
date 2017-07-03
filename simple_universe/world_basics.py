@@ -4,8 +4,8 @@
 #   Licensed under Apache v2
 #------------------------------------------------------------------------------
 
-from thing import SimpleThing
-from room import SimpleRoom
+from .thing import SimpleThing
+from .room import SimpleRoom
 
 
 zone_0 = []

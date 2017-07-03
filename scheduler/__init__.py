@@ -4,8 +4,8 @@
 #   Licensed under Apache v2
 #------------------------------------------------------------------------------
 
-from scheduler import schedule_event
-from scheduler import do_tick
+from .scheduler import schedule_event
+from .scheduler import do_tick
 
 
 

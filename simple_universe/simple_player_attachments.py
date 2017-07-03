@@ -8,9 +8,9 @@ from random import random
 
 from basics import BaseAttachment
 from interpreter import interpret
-from stim import SimpleStim, STIM_VISUAL, STIM_AUDIO, STIM_DAMAGE
 
-from process import process
+from .stim import SimpleStim, STIM_VISUAL, STIM_AUDIO, STIM_DAMAGE
+from .process import process
 
 
 class PlayerLegs(BaseAttachment):

@@ -4,7 +4,7 @@
 #   Licensed under Apache v2
 #------------------------------------------------------------------------------
 
-from process import process
+from .process import process
 
 STIM_VISUAL = 1
 STIM_AUDIO = 2

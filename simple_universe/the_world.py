@@ -4,12 +4,12 @@
 #   Licensed under Apache v2
 #------------------------------------------------------------------------------
 
-from thing import SimpleThing
-from character import SimpleCharacter
-from room import SimpleRoom
-from world import SimpleWorld
+from .thing import SimpleThing
+from .character import SimpleCharacter
+from .room import SimpleRoom
+from .world import SimpleWorld
 
-from world_basics import zone_0
+from .world_basics import zone_0
 
 DEFAULT_LOCATION = [1, 0]
 

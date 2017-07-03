@@ -4,8 +4,8 @@
 #   Licensed under Apache v2
 #------------------------------------------------------------------------------
 
-from interpreter import verb
-from interpreter import interpret
+from .interpreter import verb
+from .interpreter import interpret
 
 
 

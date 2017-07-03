@@ -5,7 +5,7 @@
 #------------------------------------------------------------------------------
 
 # from universe import process_clients
-from init_player import init_player
+from .init_player import init_player
 
 
 

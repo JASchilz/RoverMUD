@@ -28,13 +28,25 @@ This project will produce a well documented and architectured MUD that demonstra
 Requires
 --------
 
-* python 2.7+ (2.6+?)
+* python 2.7 or 3.5
+* miniboa
+
+Install
+-------
+
+```
+
+$> git clone git@github.com:JASchilz/RoverMUD.git
+$> cd RoverMud
+$> pip install -r requirements.txt
+
+```
 
 Usage
 -----
 
 ```
-$ python mud_main.py
+$> python mud_main.py
 ```
     
 You may then telnet to the server on port 7777. Recommend running RoverMUD server within a 'screen' session.

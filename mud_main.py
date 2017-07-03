@@ -23,6 +23,7 @@ from miniboa import TelnetServer
 
 import simple_universe
 import login_universe
+
 from basics import BaseCharacter, PlayerBrain
 from scheduler import schedule_event, do_tick
 

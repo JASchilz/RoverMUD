@@ -4,10 +4,10 @@
 #   Licensed under Apache v2
 #------------------------------------------------------------------------------
 
-from basics import BaseThing
-from basics import BaseCharacter
-from basics import BaseAttachment
-from basics import PlayerBrain
+from .basics import BaseThing
+from .basics import BaseCharacter
+from .basics import BaseAttachment
+from .basics import PlayerBrain
 
 
 

@@ -26,7 +26,7 @@ def do_tick():
     global time
     time += 1
 
-    for key in schedule.keys():
+    for key in list(schedule.keys()):
         if key <= time:
             events = schedule.pop(key)
             for event in events:
