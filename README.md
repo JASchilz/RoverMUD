@@ -36,7 +36,7 @@ Install
 
 ```
 
-$> git clone git@github.com:JASchilz/RoverMUD.git
+$> git clone https://github.com/JASchilz/RoverMUD.git
 $> cd RoverMud
 $> pip install -r requirements.txt
 
