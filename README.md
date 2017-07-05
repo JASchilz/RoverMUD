@@ -78,7 +78,9 @@ The code is currently messy following a merge of character and mob in simple_uni
 
 ### Immediate To-Do
 
-* Refactor persistance to [SQLAlchemy](http://www.sqlalchemy.org/) or [peewee](https://github.com/coleifer/peewee)
+* Refactor persistance to [peewee](https://github.com/coleifer/peewee)
+* Create an "admin" such that deployment is along the lines of `pip install rovermud; rovermud begin --midgaard; revermud serve`
+* Use a logging library for logging
 * Bring process and process_stim under brain
 * Bring the attachment system, especially regarding perception, to spec
 * Fix container/containment
@@ -88,7 +90,7 @@ The code is currently messy following a merge of character and mob in simple_uni
 * OLC
 * Experience and leveling
 * Wearing and wielding
-* A larger world
+* A larger world (eg: Midgaard) for the simple world.
 * NPC AI examples
 
 
