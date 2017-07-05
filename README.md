@@ -82,7 +82,8 @@ The code is currently messy following a merge of character and mob in simple_uni
 * Create an "admin" such that deployment is along the lines of `pip install rovermud; rovermud begin --midgaard; revermud serve`
 * Use a logging library for logging
 * Bring process and process_stim under brain
-* Bring the attachment system, especially regarding perception, to spec
+* Create an NPCBrain in basics, and a SimpleNPCBrain in the simple universe
+* Create base Brain class, which PlayerBrain and NPCBrain inherit from
 * Fix container/containment
 
 ### Later To-Do
