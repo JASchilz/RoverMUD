@@ -1,1 +1,2 @@
 miniboa==1.0.2
+peewee==2.10.1
