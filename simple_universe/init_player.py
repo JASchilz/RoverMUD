@@ -1,6 +1,8 @@
 from .character import SimpleCharacter, CHARACTER_LIST
 from .the_world import DEFAULT_LOCATION, THIS_WORLD
-from .simple_player_attachments import *
+from .attachments import OOCComands, PlayerArms, PlayerMouth, PlayerEyes, PlayerLegs
+from .process import process
+from .simple_stim import SimpleStim, STIM_VISUAL
 
 
 def init_player(character):
