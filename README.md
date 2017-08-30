@@ -3,7 +3,7 @@ RoverMUD
 
 A modular, object oriented, python based MUD.
 
-Communications provided by Jim Storch's miniboa. No dependencies on external libraries.
+Currently under major redevelopment: this project is not presently deployable.
 
 Notable Features
 ----------------
