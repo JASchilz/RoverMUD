@@ -4,7 +4,7 @@
 #   Licensed under Apache v2
 #------------------------------------------------------------------------------
 
-from .thing import SimpleThing
+from .simple_thing import SimpleThing
 from .room import SimpleRoom
 
 

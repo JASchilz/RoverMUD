@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------
-#   simple_universe/thing.py
+#   simple_universe/simple_thing.py
 #   Copyright 2011 Joseph Schilz
 #   Licensed under Apache v2
 #------------------------------------------------------------------------------
