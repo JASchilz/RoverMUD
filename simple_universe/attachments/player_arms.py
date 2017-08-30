@@ -1,4 +1,7 @@
 from basics import BaseAttachment
+from interpreter import interpret
+from simple_universe.simple_stim import SimpleStim, STIM_VISUAL, STIM_DAMAGE
+
 
 class PlayerArms(BaseAttachment):
 

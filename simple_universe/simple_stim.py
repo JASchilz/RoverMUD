@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------
-#   simple_universe/stim.py
+#   simple_universe/simple_stim.py
 #   Copyright 2011 Joseph Schilz
 #   Licensed under Apache v2
 #------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ STIM_AUDIO = 2
 STIM_DAMAGE = 3
 
 
-class SimpleStim():
+class SimpleStim(object):
 
     stim_type = False
     stim_string = False

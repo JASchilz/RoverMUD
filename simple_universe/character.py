@@ -12,7 +12,7 @@ from basics import BaseAttachment
 
 from .simple_thing import SimpleThing
 from .world_basics import THE_TRASH, LIMBO, A_CORPSE
-from .stim import SimpleStim, STIM_DAMAGE, STIM_VISUAL, STIM_AUDIO
+from .simple_stim import SimpleStim, STIM_DAMAGE, STIM_VISUAL, STIM_AUDIO
 
 # Here, CHARACTER_LIST is the transient list of characters that
 # are actually in the universe.

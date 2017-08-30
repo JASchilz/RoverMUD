@@ -1,4 +1,7 @@
+from random import random
+
 from basics import BaseAttachment
+from simple_universe.simple_stim import SimpleStim, STIM_AUDIO, STIM_DAMAGE, STIM_VISUAL
 
 
 class PlayerMouth(BaseAttachment):

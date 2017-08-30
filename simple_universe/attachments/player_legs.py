@@ -1,4 +1,6 @@
 from basics import BaseAttachment
+from simple_universe.simple_stim import SimpleStim, STIM_VISUAL
+from simple_universe.process import process
 
 
 class PlayerLegs(BaseAttachment):

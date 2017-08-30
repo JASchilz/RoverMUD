@@ -1,4 +1,6 @@
 from basics import BaseAttachment
+from interpreter import interpret
+
 
 class PlayerEyes(BaseAttachment):
 
