@@ -1,4 +1,7 @@
-class BaseThing(object):
+from db.db import BaseModel
+
+
+class BaseThing(BaseModel):
 
     name = ""
     processor = False

@@ -1,4 +1,7 @@
-class BaseAttachment(object):
+from db.db import BaseModel
+
+
+class BaseAttachment(BaseModel):
 
     character = False
     action_matrix = False
