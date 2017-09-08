@@ -1,15 +1,17 @@
+from peewee import CharField, ForeignKeyField
+
 from db.db import BaseModel
 
 
 class BaseThing(BaseModel):
 
-    name = ""
+    name = CharField(max_length=255)
     processor = False
 
     # All things occupy a container, such as a room or an inventory, and
     # some things may serve as containment for other things.
-    container = False
-    containment = False
+    container = ForeignKeyField('self')
+    containment =
 
     def process_stimuli(self, stimuli):
         """
