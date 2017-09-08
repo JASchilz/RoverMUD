@@ -1,4 +1,4 @@
-from peewee import CharField, ForeignKeyField
+from peewee import CharField, ForeignKeyField, Model
 
 from db.db import BaseModel
 
@@ -10,8 +10,7 @@ class BaseThing(BaseModel):
 
     # All things occupy a container, such as a room or an inventory, and
     # some things may serve as containment for other things.
-    container = ForeignKeyField('self')
-    containment =
+
 
     def process_stimuli(self, stimuli):
         """
@@ -35,3 +34,8 @@ class BaseThing(BaseModel):
         # Add the thing to its containment
         containment.append(self)
         self.containment = containment
+
+
+class ContainerContainment(Model):
+    container = ForeignKeyField(BaseThing)
+    containment = ForeignKeyField(BaseThing)
