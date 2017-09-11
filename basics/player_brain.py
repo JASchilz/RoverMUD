@@ -1,14 +1,20 @@
 import random
 
+from peewee import CharField
+
 from .base_attachment import BaseAttachment
 
 
 class PlayerBrain(BaseAttachment):
 
+    password = CharField(max_length=255)
+    pass_salt = CharField(max_length=255, default=lambda: str(random.getrandbits(128)))
+
     def __init__(self, character, client=False):
 
-        self.password = ''
-        self.pass_salt = str(random.getrandbits(128))
+        super().__init__()
+
+
 
         self.client = client
         self.logged_in = False

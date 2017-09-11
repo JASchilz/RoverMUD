@@ -1,4 +1,4 @@
-from peewee import CharField, ForeignKeyField, Model
+from peewee import CharField, ForeignKeyField, Model, CompositeKey
 
 from db.db import BaseModel
 
@@ -7,10 +7,6 @@ class BaseThing(BaseModel):
 
     name = CharField(max_length=255)
     processor = False
-
-    # All things occupy a container, such as a room or an inventory, and
-    # some things may serve as containment for other things.
-
 
     def process_stimuli(self, stimuli):
         """
@@ -37,5 +33,13 @@ class BaseThing(BaseModel):
 
 
 class ContainerContainment(Model):
+    """
+    All things occupy a container, such as a room or an inventory, and
+    some things may serve as containment for other things.
+    """
+
     container = ForeignKeyField(BaseThing)
     containment = ForeignKeyField(BaseThing)
+
+    class Meta:
+        primary_key = CompositeKey('blog', 'tag')
