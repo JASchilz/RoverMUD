@@ -1,4 +1,4 @@
-from peewee import CharField, ForeignKeyField, Model, CompositeKey
+from peewee import CharField
 
 from db.db import BaseModel
 
@@ -32,14 +32,4 @@ class BaseThing(BaseModel):
         self.containment = containment
 
 
-class ContainerContainment(Model):
-    """
-    All things occupy a container, such as a room or an inventory, and
-    some things may serve as containment for other things.
-    """
 
-    container = ForeignKeyField(BaseThing)
-    containment = ForeignKeyField(BaseThing)
-
-    class Meta:
-        primary_key = CompositeKey('blog', 'tag')
