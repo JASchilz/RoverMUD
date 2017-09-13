@@ -1,14 +1,18 @@
 import random
 
-from peewee import CharField
+from peewee import CharField, DateTimeField
 
 from .base_attachment import BaseAttachment
 
 
 class PlayerBrain(BaseAttachment):
 
+    username = CharField(max_length=255)
     password = CharField(max_length=255)
+
     pass_salt = CharField(max_length=255, default=lambda: str(random.getrandbits(128)))
+
+    last_seen = DateTimeField()
 
     def __init__(self, character, client=False):
 
