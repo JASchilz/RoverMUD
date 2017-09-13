@@ -14,8 +14,6 @@ class PlayerBrain(BaseAttachment):
 
         super().__init__()
 
-
-
         self.client = client
         self.logged_in = False
 
