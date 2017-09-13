@@ -12,10 +12,24 @@ class PolymorphicManyToMany(BaseModel):
     a_id = IntegerField()
     b_id = IntegerField()
 
-    a_class = CharField(max_length=255)
-    b_class = CharField(max_length=255)
+    a_table = CharField(max_length=255)
+    b_table = CharField(max_length=255)
 
     class Meta:
         primary_key = CompositeKey(
-            'a_id', 'b_id', 'a_class', 'b_class'
+            'a_id', 'b_id', 'a_table', 'b_table'
         )
+
+    @staticmethod
+    def associate(cls, a, b):
+        cls.insert(
+            a_id=a.primary_key,
+            b_id=b.primary_key,
+            a_table=a.table,
+            b_table=b.table,
+        )
+        
+    @staticmethod
+    def dissociate(cls, a, b):
+        cls.where(a_id=a.primary_key, b_id=b.primary_key, a_table=a.table, b_table=b.table).delete()
+

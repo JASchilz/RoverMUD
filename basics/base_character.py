@@ -10,14 +10,6 @@ class BaseCharacter(BaseThing):
         if client:
             self.brain = PlayerBrain(self, client)
 
-    def attach(self, attachment):
-        CharacterAttachment.insert(
-            container=self.primary_key,
-            containment=attachment.primary_key,
-            container_class=self.table,
-            containment_class=attachment.table,
-        )
-
     def disconnect(self):
 
         self.logged_in = False
