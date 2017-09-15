@@ -2,6 +2,7 @@ click==6.7
 import-string==0.1.0
 manage==0.1.13
 miniboa==1.0.2
+passlib==1.7.1
 peewee==2.10.1
 PyYAML==3.12
 six==1.10.0
