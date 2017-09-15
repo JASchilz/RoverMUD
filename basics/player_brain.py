@@ -41,3 +41,6 @@ class PlayerBrain(BaseAttachment):
 
     def cogitate(self):
         pass
+
+    def disconnect(self):
+        self.logged_in = False

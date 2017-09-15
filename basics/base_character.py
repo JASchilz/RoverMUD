@@ -10,6 +10,3 @@ class BaseCharacter(BaseThing):
         if client:
             self.brain = PlayerBrain(self, client)
 
-    def disconnect(self):
-
-        self.logged_in = False
